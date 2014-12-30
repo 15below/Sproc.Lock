@@ -73,4 +73,4 @@ This library is only really recommended if you are already using SQL Server, and
 have a more suitable distibuted locking server already up and running. In that case, Sproc.Lock
 can save you the overhead of adding an additional piece of infrastructure to your environment
 
-Find out more at [15below.github.io/Sproc.Lock/]((http://15below.github.io/Sproc.Lock/)
+Find out more at [15below.github.io/Sproc.Lock/](http://15below.github.io/Sproc.Lock/)
