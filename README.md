@@ -1,28 +1,71 @@
-# ProjectScaffold
+Take a distributed lock in a shared SQL Server database.
 
-This project can be used to scaffold a prototypical .NET solution including file system layout and tooling. This includes a build process that: 
+In F#:
 
-* updates all AssemblyInfo files
-* compiles the application and runs all test projects
-* generates [SourceLinks](https://github.com/ctaggart/SourceLink)
-* generates API docs based on XML document tags
-* generates [documentation based on Markdown files](http://fsprojects.github.io/ProjectScaffold/writing-docs.html)
-* generates [NuGet](http://www.nuget.org) packages
-* and allows a simple [one step release process](http://fsprojects.github.io/ProjectScaffold/release-process.html).
+	[lang=fsharp]
+	#r "Sproc.Lock.dll"
+	open System
+	open Sproc.Lock.Fun
 
-In order to start the scaffolding process run 
+	let connString = "sql server connection string"
 
-    $ build.cmd // on windows    
-    $ build.sh  // on mono
-    
-Read the [Getting started tutorial](http://fsprojects.github.io/ProjectScaffold/index.html#Getting-started) to learn more.
+	let lock1 = GetGlobalLock connString (TimeSpan.FromMinutes 5.) "MyAppLock"
 
-Documentation: http://fsprojects.github.io/ProjectScaffold
+	match lock1 with
+	| Locked l ->
+		sprintf "I got a lock called %s!" l.LockId
+		// (will be "MyAppLock" on this occassion)
+	| Unavailable ->
+		sprintf "Someone else had the lock already!"
+	| Error i ->
+		sprintf "Something went wrong - error code: %d" i
 
-## Maintainer(s)
+	lock1.Dispose()
 
-- [@forki](https://github.com/forki)
-- [@pblasucci](https://github.com/pblasucci)
-- [@sergey-tihon](https://github.com/sergey-tihon)
+And C#:
 
-The default maintainer account for projects under "fsprojects" is [@fsgit](https://github.com/fsgit) - F# Community Project Incubation Space (repo management)
+    [lang=csharp]
+    using System;
+    using Sproc.Lock.OO;
+
+
+    namespace MyApp
+    {
+        class Thing
+        {
+            static void DoLockRequiringWork()
+            {
+                var provider = new LockProvider("sql connection string");
+                try
+                {
+                    using (var lock2 = provider.GlobalLock("MyAppLock", TimeSpan.FromMinutes(5.0))
+                    {
+                        // If I get here, I've got a lock!                    
+                        // Doing stuff!
+                    } // Lock released when Disposed
+                }
+                catch (LockUnavailableException)
+                {
+                    // Couldn't get the lock                
+                    throw;
+                }
+                catch (LockRequestErrorException)
+                {
+                    // Getting the lock threw an error
+                    throw;
+                }
+            }
+        }
+    }
+
+Documentation
+-------------
+
+Sproc.Lock is a combination of a managed .net library and a set of SQL Server scripts that
+combine to turn SQL Server into a distributed locking server.
+
+This library is only really recommended if you are already using SQL Server, and do not
+have a more suitable distibuted locking server already up and running. In that case, Sproc.Lock
+can save you the overhead of adding an additional piece of infrastructure to your environment
+
+Find out more at [15below.github.io/Sproc.Lock/]((http://15below.github.io/Sproc.Lock/)
