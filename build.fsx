@@ -338,10 +338,10 @@ Target "All" DoNothing
   ==> "Build"
   ==> "DeployDatabase"
   ==> "RunTests"
-  =?> ("GenerateReferenceDocs",isLocalBuild && not isMono)
-  =?> ("GenerateDocs",isLocalBuild && not isMono)
+  =?> ("GenerateReferenceDocs",not isMono)
+  =?> ("GenerateDocs",not isMono)
   ==> "All"
-  =?> ("ReleaseDocs",isLocalBuild && not isMono)
+  =?> ("ReleaseDocs",not isMono)
 
 "All" 
 #if MONO
