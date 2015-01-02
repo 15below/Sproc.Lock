@@ -53,7 +53,7 @@ let testAssemblies = "tests/**/bin/Release/*Tests*.dll"
 // Git configuration (used for publishing documentation in gh-pages branch)
 // The profile where the project is posted
 let gitOwner = "15below" 
-let gitHome = "git@github.com:" + gitOwner
+let gitHome = "https://github.com/" + gitOwner
 
 // The name of the project on GitHub
 let gitName = "Sproc.Lock"
