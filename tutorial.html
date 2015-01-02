@@ -71,20 +71,20 @@ charges. (They're nasty, okay?)</p>
 </td>
 <td class="snippet"><pre class="fssnip">
 <span class="prep">#r</span> <span class="s">&quot;</span><span class="s">Sproc</span><span class="s">.</span><span class="s">Lock</span><span class="s">.</span><span class="s">dll</span><span class="s">&quot;</span>
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">System</span>
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">Sproc</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="i">Lock</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="i">Fun</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="i">System</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="i">Sproc</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 7)" onmouseover="showTip(event, 'fs7', 7)" class="i">Lock</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs8', 8)" onmouseover="showTip(event, 'fs8', 8)" class="i">Fun</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 7)" onmouseover="showTip(event, 'fs7', 7)" class="i">lserver</span> <span class="o">=</span> <span class="s">&quot;</span><span class="s">SQL</span><span class="s"> </span><span class="s">Server</span><span class="s"> </span><span class="s">connection</span><span class="s"> </span><span class="s">string</span><span class="s"> </span><span class="s">here</span><span class="s">&quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs9', 9)" onmouseover="showTip(event, 'fs9', 9)" class="i">lserver</span> <span class="o">=</span> <span class="s">&quot;</span><span class="s">SQL</span><span class="s"> </span><span class="s">Server</span><span class="s"> </span><span class="s">connection</span><span class="s"> </span><span class="s">string</span><span class="s"> </span><span class="s">here</span><span class="s">&quot;</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 8)" onmouseover="showTip(event, 'fs8', 8)" class="i">GetNastyData</span> () <span class="o">=</span>
-    <span class="k">use</span> <span onmouseout="hideTip(event, 'fs9', 9)" onmouseover="showTip(event, 'fs9', 9)" class="i">lock</span> <span class="o">=</span>
-        <span onmouseout="hideTip(event, 'fs10', 10)" onmouseover="showTip(event, 'fs10', 10)" class="i">GetGlobalLock</span> <span onmouseout="hideTip(event, 'fs7', 11)" onmouseover="showTip(event, 'fs7', 11)" class="i">lserver</span> (<span onmouseout="hideTip(event, 'fs11', 12)" onmouseover="showTip(event, 'fs11', 12)" class="i">TimeSpan</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 13)" onmouseover="showTip(event, 'fs12', 13)" class="i">FromMinutes</span> <span class="n">5.</span>) <span class="s">&quot;</span><span class="s">NastyAPI</span><span class="s">&quot;</span>
-    <span class="k">match</span> <span onmouseout="hideTip(event, 'fs9', 14)" onmouseover="showTip(event, 'fs9', 14)" class="i">lock</span> <span class="k">with</span>
-    | <span onmouseout="hideTip(event, 'fs13', 15)" onmouseover="showTip(event, 'fs13', 15)" class="i">Locked</span> <span onmouseout="hideTip(event, 'fs14', 16)" onmouseover="showTip(event, 'fs14', 16)" class="i">l</span> <span class="k">-&gt;</span>
-        <span onmouseout="hideTip(event, 'fs15', 17)" onmouseover="showTip(event, 'fs15', 17)" class="i">NastyAPI</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs1', 18)" onmouseover="showTip(event, 'fs1', 18)" class="i">DoOp</span>()
-    | <span onmouseout="hideTip(event, 'fs16', 19)" onmouseover="showTip(event, 'fs16', 19)" class="i">Unavailable</span> <span class="k">-&gt;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 10)" onmouseover="showTip(event, 'fs10', 10)" class="i">GetNastyData</span> () <span class="o">=</span>
+    <span class="k">use</span> <span onmouseout="hideTip(event, 'fs11', 11)" onmouseover="showTip(event, 'fs11', 11)" class="i">lock</span> <span class="o">=</span>
+        <span onmouseout="hideTip(event, 'fs12', 12)" onmouseover="showTip(event, 'fs12', 12)" class="i">GetGlobalLock</span> <span onmouseout="hideTip(event, 'fs9', 13)" onmouseover="showTip(event, 'fs9', 13)" class="i">lserver</span> (<span onmouseout="hideTip(event, 'fs13', 14)" onmouseover="showTip(event, 'fs13', 14)" class="i">TimeSpan</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 15)" onmouseover="showTip(event, 'fs14', 15)" class="i">FromMinutes</span> <span class="n">5.</span>) <span class="s">&quot;</span><span class="s">NastyAPI</span><span class="s">&quot;</span>
+    <span class="k">match</span> <span onmouseout="hideTip(event, 'fs11', 16)" onmouseover="showTip(event, 'fs11', 16)" class="i">lock</span> <span class="k">with</span>
+    | <span onmouseout="hideTip(event, 'fs15', 17)" onmouseover="showTip(event, 'fs15', 17)" class="i">Locked</span> <span onmouseout="hideTip(event, 'fs16', 18)" onmouseover="showTip(event, 'fs16', 18)" class="i">l</span> <span class="k">-&gt;</span>
+        <span onmouseout="hideTip(event, 'fs17', 19)" onmouseover="showTip(event, 'fs17', 19)" class="i">NastyAPI</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs1', 20)" onmouseover="showTip(event, 'fs1', 20)" class="i">DoOp</span>()
+    | <span onmouseout="hideTip(event, 'fs18', 21)" onmouseover="showTip(event, 'fs18', 21)" class="i">Unavailable</span> <span class="k">-&gt;</span>
         () <span class="c">// Do nothing</span>
-    | <span onmouseout="hideTip(event, 'fs17', 20)" onmouseover="showTip(event, 'fs17', 20)" class="i">Error</span> <span onmouseout="hideTip(event, 'fs18', 21)" onmouseover="showTip(event, 'fs18', 21)" class="i">i</span> <span class="k">-&gt;</span>
+    | <span onmouseout="hideTip(event, 'fs19', 22)" onmouseover="showTip(event, 'fs19', 22)" class="i">Error</span> <span onmouseout="hideTip(event, 'fs20', 23)" onmouseover="showTip(event, 'fs20', 23)" class="i">i</span> <span class="k">-&gt;</span>
         () <span class="c">// Sproc.Lock internal error occurred</span></pre>
 </td>
 </tr>
@@ -124,16 +124,16 @@ unavailable. Let's wait for it to become free instead.</p>
 </pre>
 </td>
 <td class="snippet"><pre class="fssnip">
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs19', 22)" onmouseover="showTip(event, 'fs19', 22)" class="i">WaitForNastyData</span> () <span class="o">=</span>
-    <span class="k">use</span> <span onmouseout="hideTip(event, 'fs9', 23)" onmouseover="showTip(event, 'fs9', 23)" class="i">lock</span> <span class="o">=</span>
-        <span class="k">fun</span> () <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs10', 24)" onmouseover="showTip(event, 'fs10', 24)" class="i">GetGlobalLock</span> <span onmouseout="hideTip(event, 'fs7', 25)" onmouseover="showTip(event, 'fs7', 25)" class="i">lserver</span> (<span onmouseout="hideTip(event, 'fs11', 26)" onmouseover="showTip(event, 'fs11', 26)" class="i">TimeSpan</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 27)" onmouseover="showTip(event, 'fs12', 27)" class="i">FromMinutes</span> <span class="n">5.</span>) <span class="s">&quot;</span><span class="s">NastyAPI</span><span class="s">&quot;</span>
-        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 28)" onmouseover="showTip(event, 'fs20', 28)" class="i">AwaitLock</span> (<span onmouseout="hideTip(event, 'fs11', 29)" onmouseover="showTip(event, 'fs11', 29)" class="i">TimeSpan</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 30)" onmouseover="showTip(event, 'fs12', 30)" class="i">FromMinutes</span> <span class="n">5.</span>) (<span onmouseout="hideTip(event, 'fs11', 31)" onmouseover="showTip(event, 'fs11', 31)" class="i">TimeSpan</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 32)" onmouseover="showTip(event, 'fs21', 32)" class="i">FromMilliseconds</span> <span class="n">100.</span>)
-    <span class="k">match</span> <span onmouseout="hideTip(event, 'fs9', 33)" onmouseover="showTip(event, 'fs9', 33)" class="i">lock</span> <span class="k">with</span>
-    | <span onmouseout="hideTip(event, 'fs13', 34)" onmouseover="showTip(event, 'fs13', 34)" class="i">Locked</span> <span onmouseout="hideTip(event, 'fs14', 35)" onmouseover="showTip(event, 'fs14', 35)" class="i">l</span> <span class="k">-&gt;</span>
-        <span onmouseout="hideTip(event, 'fs15', 36)" onmouseover="showTip(event, 'fs15', 36)" class="i">NastyAPI</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs1', 37)" onmouseover="showTip(event, 'fs1', 37)" class="i">DoOp</span>()
-    | <span onmouseout="hideTip(event, 'fs16', 38)" onmouseover="showTip(event, 'fs16', 38)" class="i">Unavailable</span> <span class="k">-&gt;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs21', 24)" onmouseover="showTip(event, 'fs21', 24)" class="i">WaitForNastyData</span> () <span class="o">=</span>
+    <span class="k">use</span> <span onmouseout="hideTip(event, 'fs11', 25)" onmouseover="showTip(event, 'fs11', 25)" class="i">lock</span> <span class="o">=</span>
+        <span class="k">fun</span> () <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs12', 26)" onmouseover="showTip(event, 'fs12', 26)" class="i">GetGlobalLock</span> <span onmouseout="hideTip(event, 'fs9', 27)" onmouseover="showTip(event, 'fs9', 27)" class="i">lserver</span> (<span onmouseout="hideTip(event, 'fs13', 28)" onmouseover="showTip(event, 'fs13', 28)" class="i">TimeSpan</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 29)" onmouseover="showTip(event, 'fs14', 29)" class="i">FromMinutes</span> <span class="n">5.</span>) <span class="s">&quot;</span><span class="s">NastyAPI</span><span class="s">&quot;</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs22', 30)" onmouseover="showTip(event, 'fs22', 30)" class="i">AwaitLock</span> (<span onmouseout="hideTip(event, 'fs13', 31)" onmouseover="showTip(event, 'fs13', 31)" class="i">TimeSpan</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 32)" onmouseover="showTip(event, 'fs14', 32)" class="i">FromMinutes</span> <span class="n">5.</span>) (<span onmouseout="hideTip(event, 'fs13', 33)" onmouseover="showTip(event, 'fs13', 33)" class="i">TimeSpan</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 34)" onmouseover="showTip(event, 'fs23', 34)" class="i">FromMilliseconds</span> <span class="n">100.</span>)
+    <span class="k">match</span> <span onmouseout="hideTip(event, 'fs11', 35)" onmouseover="showTip(event, 'fs11', 35)" class="i">lock</span> <span class="k">with</span>
+    | <span onmouseout="hideTip(event, 'fs15', 36)" onmouseover="showTip(event, 'fs15', 36)" class="i">Locked</span> <span onmouseout="hideTip(event, 'fs16', 37)" onmouseover="showTip(event, 'fs16', 37)" class="i">l</span> <span class="k">-&gt;</span>
+        <span onmouseout="hideTip(event, 'fs17', 38)" onmouseover="showTip(event, 'fs17', 38)" class="i">NastyAPI</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs1', 39)" onmouseover="showTip(event, 'fs1', 39)" class="i">DoOp</span>()
+    | <span onmouseout="hideTip(event, 'fs18', 40)" onmouseover="showTip(event, 'fs18', 40)" class="i">Unavailable</span> <span class="k">-&gt;</span>
         () <span class="c">// Do nothing</span>
-    | <span onmouseout="hideTip(event, 'fs17', 39)" onmouseover="showTip(event, 'fs17', 39)" class="i">Error</span> <span onmouseout="hideTip(event, 'fs18', 40)" onmouseover="showTip(event, 'fs18', 40)" class="i">i</span> <span class="k">-&gt;</span>
+    | <span onmouseout="hideTip(event, 'fs19', 41)" onmouseover="showTip(event, 'fs19', 41)" class="i">Error</span> <span onmouseout="hideTip(event, 'fs20', 42)" onmouseover="showTip(event, 'fs20', 42)" class="i">i</span> <span class="k">-&gt;</span>
         () <span class="c">// Sproc.Lock internal error occurred</span></pre>
 </td>
 </tr>
@@ -145,27 +145,122 @@ available, it will check every 100 milliseconds for the next 5 minutes until it 
 <p>Only after the 5 minutes is up will it then report the lock unavailable; if it acquires
 it on any of the attempts inbetween it will call NastyAPI.</p>
 
+<p>If we have multiple <code>NastyAPI</code> accounts, we can also take advantage of that to make
+a number of concurrent requests limited to the number of available accounts.</p>
+
+<p>First, we need to create a seq of lock IDs which are unique to each account:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs24', 43)" onmouseover="showTip(event, 'fs24', 43)" class="i">lockIds</span> <span class="o">=</span> [<span class="s">&quot;</span><span class="s">NastyAPI1</span><span class="s">&quot;</span>;<span class="s">&quot;</span><span class="s">NastyAPI2</span><span class="s">&quot;</span>]</pre>
+</td>
+</tr>
+</table>
+
+<p>Then we can try to see if any of them are available:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs25', 44)" onmouseover="showTip(event, 'fs25', 44)" class="i">GetAnyNastyData</span> () <span class="o">=</span>
+    <span class="k">use</span> <span onmouseout="hideTip(event, 'fs11', 45)" onmouseover="showTip(event, 'fs11', 45)" class="i">lock</span> <span class="o">=</span>
+        <span onmouseout="hideTip(event, 'fs24', 46)" onmouseover="showTip(event, 'fs24', 46)" class="i">lockIds</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs26', 47)" onmouseover="showTip(event, 'fs26', 47)" class="i">OneOfLocks</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs27', 48)" onmouseover="showTip(event, 'fs27', 48)" class="i">id</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs12', 49)" onmouseover="showTip(event, 'fs12', 49)" class="i">GetGlobalLock</span> <span onmouseout="hideTip(event, 'fs9', 50)" onmouseover="showTip(event, 'fs9', 50)" class="i">lserver</span> (<span onmouseout="hideTip(event, 'fs13', 51)" onmouseover="showTip(event, 'fs13', 51)" class="i">TimeSpan</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 52)" onmouseover="showTip(event, 'fs14', 52)" class="i">FromMinutes</span> <span class="n">5.</span>) <span onmouseout="hideTip(event, 'fs27', 53)" onmouseover="showTip(event, 'fs27', 53)" class="i">id</span>)
+    <span class="k">match</span> <span onmouseout="hideTip(event, 'fs11', 54)" onmouseover="showTip(event, 'fs11', 54)" class="i">lock</span> <span class="k">with</span>
+    | <span onmouseout="hideTip(event, 'fs15', 55)" onmouseover="showTip(event, 'fs15', 55)" class="i">Locked</span> <span onmouseout="hideTip(event, 'fs16', 56)" onmouseover="showTip(event, 'fs16', 56)" class="i">l</span> <span class="k">-&gt;</span>
+        <span class="c">// We know which lock we obtained here</span>
+        <span onmouseout="hideTip(event, 'fs17', 57)" onmouseover="showTip(event, 'fs17', 57)" class="i">NastyAPI</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 58)" onmouseover="showTip(event, 'fs3', 58)" class="i">DoAccountOp</span> <span onmouseout="hideTip(event, 'fs16', 59)" onmouseover="showTip(event, 'fs16', 59)" class="i">l</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 60)" onmouseover="showTip(event, 'fs28', 60)" class="i">LockId</span>
+    | <span onmouseout="hideTip(event, 'fs18', 61)" onmouseover="showTip(event, 'fs18', 61)" class="i">Unavailable</span> <span class="k">-&gt;</span>
+        () <span class="c">// Do nothing - no locks available</span>
+    | <span onmouseout="hideTip(event, 'fs19', 62)" onmouseover="showTip(event, 'fs19', 62)" class="i">Error</span> <span onmouseout="hideTip(event, 'fs20', 63)" onmouseover="showTip(event, 'fs20', 63)" class="i">i</span> <span class="k">-&gt;</span>
+        () <span class="c">// Sproc.Lock internal error occurred</span></pre>
+</td>
+</tr>
+</table>
+
+<p>Or, again, we can await one of the collection of locks:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs29', 64)" onmouseover="showTip(event, 'fs29', 64)" class="i">AwaitAnyNastyData</span> () <span class="o">=</span>
+    <span class="k">use</span> <span onmouseout="hideTip(event, 'fs11', 65)" onmouseover="showTip(event, 'fs11', 65)" class="i">lock</span> <span class="o">=</span>
+        <span class="k">fun</span> () <span class="k">-&gt;</span>
+            <span onmouseout="hideTip(event, 'fs24', 66)" onmouseover="showTip(event, 'fs24', 66)" class="i">lockIds</span>
+            <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs26', 67)" onmouseover="showTip(event, 'fs26', 67)" class="i">OneOfLocks</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs27', 68)" onmouseover="showTip(event, 'fs27', 68)" class="i">id</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs12', 69)" onmouseover="showTip(event, 'fs12', 69)" class="i">GetGlobalLock</span> <span onmouseout="hideTip(event, 'fs9', 70)" onmouseover="showTip(event, 'fs9', 70)" class="i">lserver</span> (<span onmouseout="hideTip(event, 'fs13', 71)" onmouseover="showTip(event, 'fs13', 71)" class="i">TimeSpan</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 72)" onmouseover="showTip(event, 'fs14', 72)" class="i">FromMinutes</span> <span class="n">5.</span>) <span onmouseout="hideTip(event, 'fs27', 73)" onmouseover="showTip(event, 'fs27', 73)" class="i">id</span>)
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs22', 74)" onmouseover="showTip(event, 'fs22', 74)" class="i">AwaitLock</span> (<span onmouseout="hideTip(event, 'fs13', 75)" onmouseover="showTip(event, 'fs13', 75)" class="i">TimeSpan</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 76)" onmouseover="showTip(event, 'fs14', 76)" class="i">FromMinutes</span> <span class="n">5.</span>) (<span onmouseout="hideTip(event, 'fs13', 77)" onmouseover="showTip(event, 'fs13', 77)" class="i">TimeSpan</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 78)" onmouseover="showTip(event, 'fs23', 78)" class="i">FromMilliseconds</span> <span class="n">100.</span>)
+    <span class="k">match</span> <span onmouseout="hideTip(event, 'fs11', 79)" onmouseover="showTip(event, 'fs11', 79)" class="i">lock</span> <span class="k">with</span>
+    | <span onmouseout="hideTip(event, 'fs15', 80)" onmouseover="showTip(event, 'fs15', 80)" class="i">Locked</span> <span onmouseout="hideTip(event, 'fs16', 81)" onmouseover="showTip(event, 'fs16', 81)" class="i">l</span> <span class="k">-&gt;</span>
+        <span class="c">// We know which lock we obtained here</span>
+        <span onmouseout="hideTip(event, 'fs17', 82)" onmouseover="showTip(event, 'fs17', 82)" class="i">NastyAPI</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 83)" onmouseover="showTip(event, 'fs3', 83)" class="i">DoAccountOp</span> <span onmouseout="hideTip(event, 'fs16', 84)" onmouseover="showTip(event, 'fs16', 84)" class="i">l</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 85)" onmouseover="showTip(event, 'fs28', 85)" class="i">LockId</span>
+    | <span onmouseout="hideTip(event, 'fs18', 86)" onmouseover="showTip(event, 'fs18', 86)" class="i">Unavailable</span> <span class="k">-&gt;</span>
+        () <span class="c">// Do nothing - no locks available</span>
+    | <span onmouseout="hideTip(event, 'fs19', 87)" onmouseover="showTip(event, 'fs19', 87)" class="i">Error</span> <span onmouseout="hideTip(event, 'fs20', 88)" onmouseover="showTip(event, 'fs20', 88)" class="i">i</span> <span class="k">-&gt;</span>
+        () <span class="c">// Sproc.Lock internal error occurred</span></pre>
+</td>
+</tr>
+</table>
+
 <div class="tip" id="fs1">val DoOp : config:&#39;a -&gt; unit<br /><br />Full name: Tutorial.NastyAPI.DoOp</div>
 <div class="tip" id="fs2">val config : &#39;a</div>
-<div class="tip" id="fs3">namespace System</div>
-<div class="tip" id="fs4">namespace Sproc</div>
-<div class="tip" id="fs5">namespace Sproc.Lock</div>
-<div class="tip" id="fs6">module Fun<br /><br />from Sproc.Lock</div>
-<div class="tip" id="fs7">val lserver : string<br /><br />Full name: Tutorial.lserver</div>
-<div class="tip" id="fs8">val GetNastyData : unit -&gt; unit<br /><br />Full name: Tutorial.GetNastyData</div>
-<div class="tip" id="fs9">val lock : LockResult</div>
-<div class="tip" id="fs10">val GetGlobalLock : connString:string -&gt; maxDuration:TimeSpan -&gt; lockIdentifier:string -&gt; LockResult<br /><br />Full name: Sproc.Lock.Fun.GetGlobalLock</div>
-<div class="tip" id="fs11">Multiple items<br />type TimeSpan =<br />&#160;&#160;struct<br />&#160;&#160;&#160;&#160;new : ticks:int64 -&gt; TimeSpan + 3 overloads<br />&#160;&#160;&#160;&#160;member Add : ts:TimeSpan -&gt; TimeSpan<br />&#160;&#160;&#160;&#160;member CompareTo : value:obj -&gt; int + 1 overload<br />&#160;&#160;&#160;&#160;member Days : int<br />&#160;&#160;&#160;&#160;member Duration : unit -&gt; TimeSpan<br />&#160;&#160;&#160;&#160;member Equals : value:obj -&gt; bool + 1 overload<br />&#160;&#160;&#160;&#160;member GetHashCode : unit -&gt; int<br />&#160;&#160;&#160;&#160;member Hours : int<br />&#160;&#160;&#160;&#160;member Milliseconds : int<br />&#160;&#160;&#160;&#160;member Minutes : int<br />&#160;&#160;&#160;&#160;...<br />&#160;&#160;end<br /><br />Full name: System.TimeSpan<br /><br />--------------------<br />TimeSpan()<br />TimeSpan(ticks: int64) : unit<br />TimeSpan(hours: int, minutes: int, seconds: int) : unit<br />TimeSpan(days: int, hours: int, minutes: int, seconds: int) : unit<br />TimeSpan(days: int, hours: int, minutes: int, seconds: int, milliseconds: int) : unit</div>
-<div class="tip" id="fs12">TimeSpan.FromMinutes(value: float) : TimeSpan</div>
-<div class="tip" id="fs13">union case LockResult.Locked: Lock -&gt; LockResult</div>
-<div class="tip" id="fs14">val l : Lock</div>
-<div class="tip" id="fs15">module NastyAPI<br /><br />from Tutorial</div>
-<div class="tip" id="fs16">union case LockResult.Unavailable: LockResult</div>
-<div class="tip" id="fs17">union case LockResult.Error: int -&gt; LockResult</div>
-<div class="tip" id="fs18">val i : int</div>
-<div class="tip" id="fs19">val WaitForNastyData : unit -&gt; unit<br /><br />Full name: Tutorial.WaitForNastyData</div>
-<div class="tip" id="fs20">val AwaitLock : timeOut:TimeSpan -&gt; interval:TimeSpan -&gt; getLock:(unit -&gt; LockResult) -&gt; LockResult<br /><br />Full name: Sproc.Lock.Fun.AwaitLock</div>
-<div class="tip" id="fs21">TimeSpan.FromMilliseconds(value: float) : TimeSpan</div>
+<div class="tip" id="fs3">val DoAccountOp : str:&#39;a -&gt; unit<br /><br />Full name: Tutorial.NastyAPI.DoAccountOp</div>
+<div class="tip" id="fs4">val str : &#39;a</div>
+<div class="tip" id="fs5">namespace System</div>
+<div class="tip" id="fs6">namespace Sproc</div>
+<div class="tip" id="fs7">namespace Sproc.Lock</div>
+<div class="tip" id="fs8">module Fun<br /><br />from Sproc.Lock</div>
+<div class="tip" id="fs9">val lserver : string<br /><br />Full name: Tutorial.lserver</div>
+<div class="tip" id="fs10">val GetNastyData : unit -&gt; unit<br /><br />Full name: Tutorial.GetNastyData</div>
+<div class="tip" id="fs11">val lock : LockResult</div>
+<div class="tip" id="fs12">val GetGlobalLock : connString:string -&gt; maxDuration:TimeSpan -&gt; lockIdentifier:string -&gt; LockResult<br /><br />Full name: Sproc.Lock.Fun.GetGlobalLock</div>
+<div class="tip" id="fs13">Multiple items<br />type TimeSpan =<br />&#160;&#160;struct<br />&#160;&#160;&#160;&#160;new : ticks:int64 -&gt; TimeSpan + 3 overloads<br />&#160;&#160;&#160;&#160;member Add : ts:TimeSpan -&gt; TimeSpan<br />&#160;&#160;&#160;&#160;member CompareTo : value:obj -&gt; int + 1 overload<br />&#160;&#160;&#160;&#160;member Days : int<br />&#160;&#160;&#160;&#160;member Duration : unit -&gt; TimeSpan<br />&#160;&#160;&#160;&#160;member Equals : value:obj -&gt; bool + 1 overload<br />&#160;&#160;&#160;&#160;member GetHashCode : unit -&gt; int<br />&#160;&#160;&#160;&#160;member Hours : int<br />&#160;&#160;&#160;&#160;member Milliseconds : int<br />&#160;&#160;&#160;&#160;member Minutes : int<br />&#160;&#160;&#160;&#160;...<br />&#160;&#160;end<br /><br />Full name: System.TimeSpan<br /><br />--------------------<br />TimeSpan()<br />TimeSpan(ticks: int64) : unit<br />TimeSpan(hours: int, minutes: int, seconds: int) : unit<br />TimeSpan(days: int, hours: int, minutes: int, seconds: int) : unit<br />TimeSpan(days: int, hours: int, minutes: int, seconds: int, milliseconds: int) : unit</div>
+<div class="tip" id="fs14">TimeSpan.FromMinutes(value: float) : TimeSpan</div>
+<div class="tip" id="fs15">union case LockResult.Locked: Lock -&gt; LockResult</div>
+<div class="tip" id="fs16">val l : Lock</div>
+<div class="tip" id="fs17">module NastyAPI<br /><br />from Tutorial</div>
+<div class="tip" id="fs18">union case LockResult.Unavailable: LockResult</div>
+<div class="tip" id="fs19">union case LockResult.Error: int -&gt; LockResult</div>
+<div class="tip" id="fs20">val i : int</div>
+<div class="tip" id="fs21">val WaitForNastyData : unit -&gt; unit<br /><br />Full name: Tutorial.WaitForNastyData</div>
+<div class="tip" id="fs22">val AwaitLock : timeOut:TimeSpan -&gt; interval:TimeSpan -&gt; getLock:(unit -&gt; LockResult) -&gt; LockResult<br /><br />Full name: Sproc.Lock.Fun.AwaitLock</div>
+<div class="tip" id="fs23">TimeSpan.FromMilliseconds(value: float) : TimeSpan</div>
+<div class="tip" id="fs24">val lockIds : string list<br /><br />Full name: Tutorial.lockIds</div>
+<div class="tip" id="fs25">val GetAnyNastyData : unit -&gt; unit<br /><br />Full name: Tutorial.GetAnyNastyData</div>
+<div class="tip" id="fs26">val OneOfLocks : getLock:(&#39;a -&gt; LockResult) -&gt; lockIds:seq&lt;&#39;a&gt; -&gt; LockResult<br /><br />Full name: Sproc.Lock.Fun.OneOfLocks</div>
+<div class="tip" id="fs27">val id : string</div>
+<div class="tip" id="fs28">property Lock.LockId: string</div>
+<div class="tip" id="fs29">val AwaitAnyNastyData : unit -&gt; unit<br /><br />Full name: Tutorial.AwaitAnyNastyData</div>
 
         </div>
         <div class="span3">
