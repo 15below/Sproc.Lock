@@ -1,71 +1,230 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Sproc.lock by 15below</title>
+    <meta charset="utf-8"/>
+    <title>Sproc.Lock
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="SQL Server based distributed locking."/>
+    <meta name="author" content="Michael Newton"/>
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/Sproc.Lock/content/style.css" />
+    <script type="text/javascript" src="/Sproc.Lock/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
   </head>
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>Sproc.lock</h1>
-        <p>SQL Server based lock server library for .net</p>
-
-        <p class="view"><a href="https://github.com/15below/Sproc.Lock">View the Project on GitHub <small>15below/Sproc.Lock</small></a></p>
-
-
-        <ul>
-          <li><a href="https://github.com/15below/Sproc.Lock/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/15below/Sproc.Lock/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/15below/Sproc.Lock">View On <strong>GitHub</strong></a></li>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://15below.com">15below.com</a></li>
+          <li><a href="http://github.com/15below/Sproc.Lock">github page</a></li>
         </ul>
-      </header>
-      <section>
-        <h3>
-<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+        <h3 class="muted"><a href="/Sproc.Lock/index.html">Sproc.Lock</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1>Sproc.Lock</h1>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>Documentation</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-<h3>
-<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>
-<a id="rather-drive-stick" class="anchor" href="#rather-drive-stick" aria-hidden="true"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="https://help.github.com/pages">https://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/15below">15below</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
+<div class="row">
+  <div class="span1"></div>
+  <div class="span6">
+    <div class="well well-small" id="nuget">
+      The Sproc.Lock library can be <a href="https://nuget.org/packages/Sproc.Lock">installed from NuGet</a>:
+      <pre>PM> Install-Package Sproc.Lock</pre>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
+  </div>
+  <div class="span1"></div>
+</div>
+
+<h2>Example</h2>
+
+<p>Take a distributed lock in a shared SQL Server database.</p>
+
+<p>In F#:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="prep">#r</span> <span class="s">&quot;</span><span class="s">Sproc</span><span class="s">.</span><span class="s">Lock</span><span class="s">.</span><span class="s">dll</span><span class="s">&quot;</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">System</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">Sproc</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">Lock</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">Fun</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="i">connString</span> <span class="o">=</span> <span class="s">&quot;</span><span class="s">sql</span><span class="s"> </span><span class="s">server</span><span class="s"> </span><span class="s">connection</span><span class="s"> </span><span class="s">string</span><span class="s">&quot;</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="i">lock1</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs7', 7)" onmouseover="showTip(event, 'fs7', 7)" class="i">GetGlobalLock</span> <span onmouseout="hideTip(event, 'fs5', 8)" onmouseover="showTip(event, 'fs5', 8)" class="i">connString</span> (<span onmouseout="hideTip(event, 'fs8', 9)" onmouseover="showTip(event, 'fs8', 9)" class="i">TimeSpan</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 10)" onmouseover="showTip(event, 'fs9', 10)" class="i">FromMinutes</span> <span class="n">5.</span>) <span class="s">&quot;</span><span class="s">MyAppLock</span><span class="s">&quot;</span>
+
+<span class="k">match</span> <span onmouseout="hideTip(event, 'fs6', 11)" onmouseover="showTip(event, 'fs6', 11)" class="i">lock1</span> <span class="k">with</span>
+| <span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="i">Locked</span> <span onmouseout="hideTip(event, 'fs11', 13)" onmouseover="showTip(event, 'fs11', 13)" class="i">l</span> <span class="k">-&gt;</span>
+    <span onmouseout="hideTip(event, 'fs12', 14)" onmouseover="showTip(event, 'fs12', 14)" class="i">sprintf</span> <span class="s">&quot;</span><span class="s">I</span><span class="s"> </span><span class="s">got</span><span class="s"> </span><span class="s">a</span><span class="s"> </span><span class="s">lock</span><span class="s"> </span><span class="s">called</span><span class="s"> </span><span class="s">%</span><span class="s">s</span><span class="s">!</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs11', 15)" onmouseover="showTip(event, 'fs11', 15)" class="i">l</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 16)" onmouseover="showTip(event, 'fs13', 16)" class="i">LockId</span>
+    <span class="c">// (will be &quot;MyAppLock&quot; on this occassion)</span>
+| <span onmouseout="hideTip(event, 'fs14', 17)" onmouseover="showTip(event, 'fs14', 17)" class="i">Unavailable</span> <span class="k">-&gt;</span>
+    <span onmouseout="hideTip(event, 'fs12', 18)" onmouseover="showTip(event, 'fs12', 18)" class="i">sprintf</span> <span class="s">&quot;</span><span class="s">Someone</span><span class="s"> </span><span class="s">else</span><span class="s"> </span><span class="s">had</span><span class="s"> </span><span class="s">the</span><span class="s"> </span><span class="s">lock</span><span class="s"> </span><span class="s">already</span><span class="s">!</span><span class="s">&quot;</span>
+| <span onmouseout="hideTip(event, 'fs15', 19)" onmouseover="showTip(event, 'fs15', 19)" class="i">Error</span> <span onmouseout="hideTip(event, 'fs16', 20)" onmouseover="showTip(event, 'fs16', 20)" class="i">i</span> <span class="k">-&gt;</span>
+    <span onmouseout="hideTip(event, 'fs12', 21)" onmouseover="showTip(event, 'fs12', 21)" class="i">sprintf</span> <span class="s">&quot;</span><span class="s">Something</span><span class="s"> </span><span class="s">went</span><span class="s"> </span><span class="s">wrong</span><span class="s"> </span><span class="s">-</span><span class="s"> </span><span class="s">error</span><span class="s"> </span><span class="s">code</span><span class="s">:</span><span class="s"> </span><span class="s">%</span><span class="s">d</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs16', 22)" onmouseover="showTip(event, 'fs16', 22)" class="i">i</span>
+
+<span onmouseout="hideTip(event, 'fs6', 23)" onmouseover="showTip(event, 'fs6', 23)" class="i">lock1</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 24)" onmouseover="showTip(event, 'fs17', 24)" class="i">Dispose</span>()</pre>
+</td>
+</tr>
+</table>
+
+<p>And C#:</p>
+
+<table class="pre"><tr><td><pre lang="csharp"><span class="k">using</span> System;
+<span class="k">using</span> Sproc.Lock.OO;
+
+
+<span class="k">namespace</span> MyApp
+{
+    <span class="k">class</span> Thing
+    {
+        <span class="k">static</span> <span class="k">void</span> DoLockRequiringWork()
+        {
+            <span class="k">var</span> provider <span class="o">=</span> <span class="k">new</span> LockProvider(<span class="s">"sql connection string"</span>);
+            <span class="k">try</span>
+            {
+                <span class="k">using</span> (<span class="k">var</span> lock2 <span class="o">=</span> provider.GlobalLock(<span class="s">"MyAppLock"</span>, TimeSpan.FromMinutes(5.0))
+                {
+                    <span class="c">// If I get here, I&amp;#39;ve got a lock!                    </span>
+                    <span class="c">// Doing stuff!</span>
+                } <span class="c">// Lock released when Disposed</span>
+            }
+            <span class="k">catch</span> (LockUnavailableException)
+            {
+                <span class="c">// Couldn&amp;#39;t get the lock                </span>
+                <span class="k">throw</span>;
+            }
+            <span class="k">catch</span> (LockRequestErrorException)
+            {
+                <span class="c">// Getting the lock threw an error</span>
+                <span class="k">throw</span>;
+            }
+        }
+    }
+}</pre></td></tr></table>
+
+<h2>Documentation</h2>
+
+<p>Sproc.Lock is a combination of a managed .net library and a set of SQL Server scripts that
+combine to turn SQL Server into a distributed locking server.</p>
+
+<p>This library is only really recommended if you are already using SQL Server, and do not
+have a more suitable distibuted locking server already up and running. In that case, Sproc.Lock
+can save you the overhead of adding an additional piece of infrastructure to your environment.</p>
+
+<h2>Basic Concepts</h2>
+
+<p>Sproc.Lock makes use of a few concepts that might not be immediately obvious.</p>
+
+<p>Firstly, all methods that acquire a lock must specify a maximum duration it will be held for.
+This is essential in distributed locking systems, as otherwise a crashing/abnormally behaving
+service may acquire a lock and never release it.</p>
+
+<p>Secondly, Sproc.Lock has three levels of scoping a lock. Locks can be acquired as:</p>
+
+<ul>
+<li>Global - no other global lock with the same lock id can be acquired at the same time</li>
+<li>Organisation - an organisation id is also specified, and locks with the same id can be held by multiple organisations</li>
+<li>Environment - an organisation id and environment type are specified; locks are scoped within both</li>
+</ul>
+
+<p>This is designed to cope with the common situations of having resources that are available in limited number:</p>
+
+<ul>
+<li>across a data centre</li>
+<li>across an client organisation</li>
+<li>within a particular environment (i.e. Production, Test, etc)</li>
+</ul>
+
+<h2>Find Out More!</h2>
+
+<ul>
+<li><p><a href="tutorial.html">Tutorial</a> contains a further explanation of Sproc.Lock.</p></li>
+<li><p><a href="reference/index.html">API Reference</a> contains automatically generated documentation for all types, modules
+and functions in the library. This includes additional brief samples on using most of the
+functions.</p></li>
+</ul>
+
+<h2>Contributing and copyright</h2>
+
+<p>The project is hosted on <a href="https://github.com/fsprojects/Sproc.Lock">GitHub</a> where you can <a href="https://github.com/fsprojects/Sproc.Lock/issues">report issues</a>, fork 
+the project and submit pull requests. If you're adding a new public API, please also 
+consider adding <a href="https://github.com/fsprojects/Sproc.Lock/tree/master/docs/content">samples</a> that can be turned into a documentation. You might
+also want to read the <a href="https://github.com/fsprojects/Sproc.Lock/blob/master/README.md">library design notes</a> to understand how it works.</p>
+
+<p>The library is available under Public Domain license, which allows modification and 
+redistribution for both commercial and non-commercial purposes. For more information see the 
+<a href="https://github.com/fsprojects/Sproc.Lock/blob/master/LICENSE.txt">License file</a> in the GitHub repository.</p>
+
+<div class="tip" id="fs1">namespace System</div>
+<div class="tip" id="fs2">namespace Sproc</div>
+<div class="tip" id="fs3">namespace Sproc.Lock</div>
+<div class="tip" id="fs4">module Fun<br /><br />from Sproc.Lock</div>
+<div class="tip" id="fs5">val connString : string<br /><br />Full name: Index.connString</div>
+<div class="tip" id="fs6">val lock1 : LockResult<br /><br />Full name: Index.lock1</div>
+<div class="tip" id="fs7">val GetGlobalLock : connString:string -&gt; maxDuration:TimeSpan -&gt; lockIdentifier:string -&gt; LockResult<br /><br />Full name: Sproc.Lock.Fun.GetGlobalLock</div>
+<div class="tip" id="fs8">Multiple items<br />type TimeSpan =<br />&#160;&#160;struct<br />&#160;&#160;&#160;&#160;new : ticks:int64 -&gt; TimeSpan + 3 overloads<br />&#160;&#160;&#160;&#160;member Add : ts:TimeSpan -&gt; TimeSpan<br />&#160;&#160;&#160;&#160;member CompareTo : value:obj -&gt; int + 1 overload<br />&#160;&#160;&#160;&#160;member Days : int<br />&#160;&#160;&#160;&#160;member Duration : unit -&gt; TimeSpan<br />&#160;&#160;&#160;&#160;member Equals : value:obj -&gt; bool + 1 overload<br />&#160;&#160;&#160;&#160;member GetHashCode : unit -&gt; int<br />&#160;&#160;&#160;&#160;member Hours : int<br />&#160;&#160;&#160;&#160;member Milliseconds : int<br />&#160;&#160;&#160;&#160;member Minutes : int<br />&#160;&#160;&#160;&#160;...<br />&#160;&#160;end<br /><br />Full name: System.TimeSpan<br /><br />--------------------<br />TimeSpan()<br />TimeSpan(ticks: int64) : unit<br />TimeSpan(hours: int, minutes: int, seconds: int) : unit<br />TimeSpan(days: int, hours: int, minutes: int, seconds: int) : unit<br />TimeSpan(days: int, hours: int, minutes: int, seconds: int, milliseconds: int) : unit</div>
+<div class="tip" id="fs9">TimeSpan.FromMinutes(value: float) : TimeSpan</div>
+<div class="tip" id="fs10">union case LockResult.Locked: Lock -&gt; LockResult</div>
+<div class="tip" id="fs11">val l : Lock</div>
+<div class="tip" id="fs12">val sprintf : format:Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.sprintf</div>
+<div class="tip" id="fs13">property Lock.LockId: string</div>
+<div class="tip" id="fs14">union case LockResult.Unavailable: LockResult</div>
+<div class="tip" id="fs15">union case LockResult.Error: int -&gt; LockResult</div>
+<div class="tip" id="fs16">val i : int</div>
+<div class="tip" id="fs17">member LockResult.Dispose : unit -&gt; unit</div>
+
+        </div>
+        <div class="span3">
+          <img src="/Sproc.Lock/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">Sproc.Lock</li>
+            <li><a href="/Sproc.Lock/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/Sproc.Lock">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/15below/Sproc.Lock">Source Code on GitHub</a></li>
+            <li><a href="/Sproc.Lock/license.html">License</a></li>
+            <li><a href="/Sproc.Lock/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/Sproc.Lock/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/Sproc.Lock/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/15below/Sproc.Lock"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
   </body>
-</html>
+  </html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Fun - Sproc.Lock</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Michael Newton"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/Sproc.Lock/content/style.css" />
+    <script type="text/javascript" src="/Sproc.Lock/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://15below.com">15below.com</a></li>
+          <li><a href="http://github.com/15below/Sproc.Lock">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/Sproc.Lock/index.html">Sproc.Lock</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Fun</h1>
+<div class="xmldoc">
+<p>A mostly functional discriminated union based API for use from F#</p>
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+  <h2>Nested types and modules</h2>
+  <div>
+      <table class="table table-bordered type-list">
+    <thead>
+      <tr><td>Type</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td class="type-name">
+            <a href="sproc-lock-fun-lock.html">Lock</a>
+          </td>
+          <td class="xmldoc"><p>Type representing a Lock that has definitely been acquired. Locks are
+IDisposable; disposing the lock will ensure it is released.</p>
+</td>
+        </tr>
+        <tr>
+          <td class="type-name">
+            <a href="sproc-lock-fun-lockresult.html">LockResult</a>
+          </td>
+          <td class="xmldoc"><p>A type representing the possible results of attempting to acquire a lock.</p>
+</td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1', 1)" onmouseover="showTip(event, '1', 1)">
+            AwaitLock timeOut interval getLock
+          </code>
+          <div class="tip" id="1">
+            <strong>Signature:</strong> timeOut:TimeSpan -&gt; interval:TimeSpan -&gt; getLock:(unit -&gt; LockResult) -&gt; LockResult<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L164-164" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Poll the server waiting for a lock to become available. The method will block for no more than <code>timeOut</code> time, polling every <code>interval</code>.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2', 2)" onmouseover="showTip(event, '2', 2)">
+            DropLock lock
+          </code>
+          <div class="tip" id="2">
+            <strong>Signature:</strong> lock:Lock -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L160-160" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Drop a lock. Equivilent to calling <code>Lock.Dispose()</code>.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '3', 3)" onmouseover="showTip(event, '3', 3)">
+            GetEnvironmentLock (...)
+          </code>
+          <div class="tip" id="3">
+            <strong>Signature:</strong> connString:string -&gt; organisation:string -&gt; environment:string -&gt; maxDuration:TimeSpan -&gt; lockIdentifier:string -&gt; LockResult<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L140-140" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Attempts to acquire an environment scoped lock from the specified server with
+the specified lockIdentifier. After maxDuration has elapsed the
+lock will become "stale" and will be automatically released to the
+next requester.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '4', 4)" onmouseover="showTip(event, '4', 4)">
+            GetGlobalLock (...)
+          </code>
+          <div class="tip" id="4">
+            <strong>Signature:</strong> connString:string -&gt; maxDuration:TimeSpan -&gt; lockIdentifier:string -&gt; LockResult<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L95-95" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Attempts to acquire a global lock from the specified server with
+the specified lockIdentifier. After maxDuration has elapsed the
+lock will become "stale" and will be automatically released to the
+next requester.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '5', 5)" onmouseover="showTip(event, '5', 5)">
+            GetOrganisationLock (...)
+          </code>
+          <div class="tip" id="5">
+            <strong>Signature:</strong> connString:string -&gt; organisation:string -&gt; maxDuration:TimeSpan -&gt; lockIdentifier:string -&gt; LockResult<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L118-118" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Attempts to acquire an organisation scoped lock from the specified server with
+the specified lockIdentifier. After maxDuration has elapsed the
+lock will become "stale" and will be automatically released to the
+next requester.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '6', 6)" onmouseover="showTip(event, '6', 6)">
+            OneOfLocks getLock lockIds
+          </code>
+          <div class="tip" id="6">
+            <strong>Signature:</strong> getLock:(&#39;?6149 -&gt; LockResult) -&gt; lockIds:seq&lt;&#39;?6149&gt; -&gt; LockResult<br />
+                          <strong>Type parameters:</strong> '?6149          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L197-197" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Given a <code>getLock</code> function of lockId -> LockResult and a list of lockIds,
+this function will try and acquire any one of the specified lockIds working
+through them in a random order.</p>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <img src="/Sproc.Lock/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">Sproc.Lock</li>
+            <li><a href="/Sproc.Lock/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/Sproc.Lock">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/15below/Sproc.Lock">Source Code on GitHub</a></li>
+            <li><a href="/Sproc.Lock/license.html">License</a></li>
+            <li><a href="/Sproc.Lock/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/Sproc.Lock/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/Sproc.Lock/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/15below/Sproc.Lock"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>
