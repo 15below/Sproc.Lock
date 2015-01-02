@@ -1,4 +1,8 @@
 ### 0.5.4 - Unreleased
+* Fix push tag on CI Server
+* Fix CI user for working gh-pages
+
+### 0.5.4 - Unreleased
 * Grammar
 * More tutorial improvements
 
