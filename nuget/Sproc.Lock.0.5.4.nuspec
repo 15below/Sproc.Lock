@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>Sproc.Lock</id>
+    <version>0.5.4</version>
+    <authors>Michael Newton</authors>
+    <owners>Michael Newton</owners>
+    <licenseUrl>http://github.com/fsprojects/Sproc.Lock/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>http://fsprojects.github.com/Sproc.Lock</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/fsprojects/ProjectScaffold/master/docs/files/img/logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>SQL Server based distributed locking.</summary>
+    <description>SQL Server based distributed locking library.</description>
+    <releaseNotes>Turn off Paket auto restore (run build script instead)</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>distributed_lock lock</tags>
+    <dependencies />
+  </metadata>
+  <files>
+    <file src="..\bin\Sproc.Lock.dll" target="lib/net40" />
+    <file src="..\bin\Sproc.Lock.pdb" target="lib/net40" />
+  </files>
+</package>
