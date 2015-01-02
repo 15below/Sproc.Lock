@@ -46,14 +46,37 @@ let GetNastyData () =
 What does this do? Well, it gets the lock called ``NastyAPI`` from the Sproc.Lock server if
 (and only if) it's available; if it is, it calls NastyAPI.
 
-Because the ``LockResult`` returned by ``GetGlobalLock`` is ``IDisposable``, the lock will
-be dropped when the function completes regardless of which execution route is taken.
-
 If not it does nothing.  Because the ``LockResult`` returned by ``GetGlobalLock``
 is ``IDisposable``, the lock will be dropped when the function completes regardless
 of which execution route is taken.
 
 Regardless of what else happens, the lock server will drop the lock after 5 minutes; the
 maximum duration specified in the get lock call should be well in excess of the time you
-expect NastyAPI to take. Why is this? Well - if your service
+expect NastyAPI to take. Why is this? Well - if your service were to crash, or (worse)
+hang indefinitely, that lock would be unavailable forever. Conversely, if you pick too
+short a maximum duration your operation may not be finished before the lock expires.
+
+Be conservative with maximum durations; an order of magnitude more than the normal time
+required is probably about right.
+
+This is all very clean; but normally you don't want to just "do nothing" if the lock is
+unavailable. Let's wait for it to become free instead.
+
+*)
+
+let WaitForNastyData () =
+    use lock =
+        fun () -> GetGlobalLock lserver (TimeSpan.FromMinutes 5.) "NastyAPI"
+        |> AwaitLock (TimeSpan.FromMinutes 5.) (TimeSpan.FromMilliseconds 100.)
+    match lock with
+    | Locked l ->
+        NastyAPI.DoOp()
+    | Unavailable ->
+        () // Do nothing
+    | Error i ->
+        () // Sproc.Lock internal error occurred
+
+(**
+This code is very similar to the code above, except that if the lock is not immediately
+available, it will check every 100 milliseconds for the next 5 minutes until it is.
 *)
