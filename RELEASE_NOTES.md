@@ -1,4 +1,4 @@
-### 0.5.4 - Unreleased
+### 0.5.5 - Unreleased
 * Turn off Paket auto restore (run build script instead)
 
 ### 0.5.4 - Unreleased
