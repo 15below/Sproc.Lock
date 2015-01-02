@@ -4,6 +4,7 @@
 #I "../../bin"
 module NastyAPI =
     let DoOp config = ()
+    let DoAccountOp str = ()
 
 (**
 Distributed Locking via SQL Server
@@ -82,4 +83,49 @@ available, it will check every 100 milliseconds for the next 5 minutes until it 
 
 Only after the 5 minutes is up will it then report the lock unavailable; if it acquires
 it on any of the attempts inbetween it will call NastyAPI.
+
+If we have multiple ``NastyAPI`` accounts, we can also take advantage of that to make
+a number of concurrent requests limited to the number of available accounts.
+
+First, we need to create a seq of lock IDs which are unique to each account:
 *)
+
+let lockIds = ["NastyAPI1";"NastyAPI2"]
+
+(**
+Then we can try to see if any of them are available:
+*)
+
+let GetAnyNastyData () =
+    use lock =
+        lockIds
+        |> OneOfLocks (fun id -> GetGlobalLock lserver (TimeSpan.FromMinutes 5.) id)
+    match lock with
+    | Locked l ->
+        // We know which lock we obtained here
+        NastyAPI.DoAccountOp l.LockId
+    | Unavailable ->
+        () // Do nothing - no locks available
+    | Error i ->
+        () // Sproc.Lock internal error occurred
+
+(**
+
+Or, again, we can await one of the collection of locks:
+
+*)
+
+let AwaitAnyNastyData () =
+    use lock =
+        fun () ->
+            lockIds
+            |> OneOfLocks (fun id -> GetGlobalLock lserver (TimeSpan.FromMinutes 5.) id)
+        |> AwaitLock (TimeSpan.FromMinutes 5.) (TimeSpan.FromMilliseconds 100.)
+    match lock with
+    | Locked l ->
+        // We know which lock we obtained here
+        NastyAPI.DoAccountOp l.LockId
+    | Unavailable ->
+        () // Do nothing - no locks available
+    | Error i ->
+        () // Sproc.Lock internal error occurred
