@@ -1,7 +1,9 @@
 ### 0.5.4 - Unreleased
+* Turn off Paket auto restore (run build script instead)
+
+### 0.5.4 - Unreleased
 * Fix push tag on CI Server
 * Fix CI user for working gh-pages
-* Turn off Paket auto restore (run build script instead)
 
 ### 0.5.4 - Unreleased
 * Grammar
