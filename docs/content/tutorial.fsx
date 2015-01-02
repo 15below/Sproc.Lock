@@ -79,4 +79,7 @@ let WaitForNastyData () =
 (**
 This code is very similar to the code above, except that if the lock is not immediately
 available, it will check every 100 milliseconds for the next 5 minutes until it is.
+
+Only after the 5 minutes is up will it then report the lock unavailable; if it acquires
+it on any of the attempts inbetween it will call NastyAPI.
 *)
