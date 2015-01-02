@@ -347,7 +347,6 @@ Target "All" DoNothing
 "Clean"
   ==> "AssemblyInfo"
   ==> "Build"
-  ==> "DeployDatabase"
   ==> "RunTests"
   =?> ("GenerateReferenceDocs",not isMono)
   =?> ("GenerateDocs",not isMono)
@@ -378,5 +377,8 @@ Target "All" DoNothing
 
 "BuildPackage"
   ==> "Release"
+
+"DeployDatabase"
+  ==> "RunTests"
 
 RunTargetOrDefault "All"
