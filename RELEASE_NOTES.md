@@ -1,3 +1,6 @@
+### 0.5.2 - Unreleased
+* Fix CI documentation push
+
 ### 0.5.1 - Unreleased
 * Release from CI server
 

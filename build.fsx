@@ -53,7 +53,17 @@ let testAssemblies = "tests/**/bin/Release/*Tests*.dll"
 // Git configuration (used for publishing documentation in gh-pages branch)
 // The profile where the project is posted
 let gitOwner = "15below" 
-let gitHome = "https://github.com/" + gitOwner
+let gitAuth =
+    match
+        environVarOrNone "github-user"
+        |> Option.bind
+            (fun user ->
+                environVarOrNone "github-pw"
+                |> Option.bind (fun pw -> Some <| sprintf "%s:%s@" user pw ))
+        with
+    | Some auth -> auth
+    | None -> ""
+let gitHome = sprintf "https://%sgithub.com/%s" gitAuth gitOwner
 
 // The name of the project on GitHub
 let gitName = "Sproc.Lock"
