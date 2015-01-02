@@ -24,19 +24,19 @@ type LockProvider (connString : string) =
         | Unavailable -> raise <| LockUnavailableException(sprintf "Lock %s was unavailable." lockId)
         | Error i -> raise <| LockRequestErrorException i
         
-    /// Attempts to acquire a global lock from the this provider with
+    /// Attempts to acquire a global lock from the provider with
     /// the specified lockIdentifier. After maxDuration has elapsed the
     /// lock will become "stale" and will be automatically released to the
     /// next requester.
     member x.GlobalLock (lockId, maxDuration) =
         GetGlobalLock connString maxDuration |> OOise lockId
-    /// Attempts to acquire an organisation lock from the this provider with
+    /// Attempts to acquire an organisation lock from the provider with
     /// the specified lockIdentifier. After maxDuration has elapsed the
     /// lock will become "stale" and will be automatically released to the
     /// next requester.
     member x.OrganisationLock (lockId, organisation, maxDuration) =
         GetOrganisationLock connString organisation maxDuration |> OOise lockId
-    /// Attempts to acquire an environment lock from the this provider with
+    /// Attempts to acquire an environment lock from the provider with
     /// the specified lockIdentifier. After maxDuration has elapsed the
     /// lock will become "stale" and will be automatically released to the
     /// next requester.
