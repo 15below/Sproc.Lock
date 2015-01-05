@@ -49,6 +49,8 @@ let GetNastyData () =
     /// <summary>
     /// Wrapper class; all examples below are static members
     /// within it.
+    ///
+    /// These examples use the Sproc.Lock.OO namespace
     /// </summary>
     public class DoWork
     {
