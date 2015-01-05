@@ -44,12 +44,40 @@ let GetNastyData () =
         () // Sproc.Lock internal error occurred
 
 (**
+
+    [lang=csharp]
+    /// <summary>
+    /// Wrapper class; all examples below are static members
+    /// within it.
+    /// </summary>
+    public class DoWork
+    {
+        static LockProvider provider = new LockProvider("sql connection string");
+        static public void GetNastyData()
+        {
+            try
+            {
+                using (var myLock = provider.GlobalLock("NastyAPI", TimeSpan.FromMinutes(5.0)))
+                {
+                    NastyAPI.DoOp();
+                } // Lock released when Disposed
+            }
+            catch (LockUnavailableException)
+            {
+                // Do nothing
+            }
+            catch (LockRequestErrorException)
+            {
+                // Sproc.Lock internal error occurred
+            }
+        }
+    }
+
 What does this do? Well, it gets the lock called ``NastyAPI`` from the Sproc.Lock server if
 (and only if) it's available; if it is, it calls NastyAPI.
 
-If not it does nothing.  Because the ``LockResult`` returned by ``GetGlobalLock``
-is ``IDisposable``, the lock will be dropped when the function completes regardless
-of which execution route is taken.
+If not it does nothing.  All ``Lock``s and ``LockResult``s are ``IDisposable``, so the lock will 
+be dropped when the function completes regardless of which execution route is taken.
 
 Regardless of what else happens, the lock server will drop the lock after 5 minutes; the
 maximum duration specified in the get lock call should be well in excess of the time you
@@ -78,6 +106,31 @@ let WaitForNastyData () =
         () // Sproc.Lock internal error occurred
 
 (**
+
+    [lang=csharp]
+    static public void WaitForNastyData()
+    {
+        try
+        {
+            using (var myLock = provider.AwaitGlobalLock("NastyAPI",
+                TimeSpan.FromMinutes(5.0), 
+                TimeSpan.FromMinutes(5.0),
+                TimeSpan.FromMilliseconds(100.0)))
+            {
+                NastyAPI.DoOp();
+            } // Lock released when Disposed
+        }
+        catch (LockUnavailableException)
+        {
+            // Do nothing
+        }
+        catch (LockRequestErrorException)
+        {
+            // Sproc.Lock internal error occurred
+        }
+    }
+
+
 This code is very similar to the code above, except that if the lock is not immediately
 available, it will check every 100 milliseconds for the next 5 minutes until it is.
 
@@ -93,6 +146,10 @@ First, we need to create a seq of lock IDs which are unique to each account:
 let lockIds = ["NastyAPI1";"NastyAPI2"]
 
 (**
+
+    [lang=csharp]
+    static List<String> lockIds = new List<string> { "NastyAPI1", "NastyAPI2" };
+
 Then we can try to see if any of them are available:
 *)
 
@@ -110,6 +167,28 @@ let GetAnyNastyData () =
         () // Sproc.Lock internal error occurred
 
 (**
+
+    [lang=csharp]
+    static public void GetAnyNastyData()
+    {
+        try
+        {
+            using (var myLock = provider.OneOf(
+                    id => provider.GlobalLock(id, TimeSpan.FromMinutes(5.0)),
+                    lockIds
+                ))
+            {
+                NastyAPI.DoAccountOp(myLock.LockId);
+            } // Lock released when Disposed
+        }
+        catch (LockUnavailableException)
+        {
+        }
+        catch (LockRequestErrorException)
+        {
+        }
+    }
+
 
 Or, again, we can await one of the collection of locks:
 
@@ -129,3 +208,183 @@ let AwaitAnyNastyData () =
         () // Do nothing - no locks available
     | Error i ->
         () // Sproc.Lock internal error occurred
+
+(**
+
+    [lang=csharp]
+    static public void AwaitAnyNastyData()
+    {
+        try
+        {
+            using (var myLock = provider.AwaitOneOf(
+                    id => provider.GlobalLock(id, TimeSpan.FromMinutes(5.0)),
+                    lockIds,
+                    TimeSpan.FromMinutes(5.0),
+                    TimeSpan.FromMilliseconds(100.0)
+                ))
+            {
+                NastyAPI.DoAccountOp(myLock.LockId);
+            } // Lock released when Disposed
+        }
+        catch (LockUnavailableException)
+        {
+        }
+        catch (LockRequestErrorException)
+        {
+        }
+    }
+
+
+Using "scoped" locks works in a similar fashion. Let's look at an API that a "Organisation" can only access with a single
+shared connection:
+
+*)
+
+let OrganisationNastyData orgName =
+    use lock =
+        GetOrganisationLock lserver orgName (TimeSpan.FromMinutes 5.) "NastyAPI"
+    match lock with
+    | Locked _ ->
+        // Any number of organisations can do this at the same time
+        NastyAPI.DoOp ()
+    | Unavailable ->
+        // Only reached if the same organisation has already acquired the lock
+        ()
+    | Error i ->
+        // Sproc.Lock hit an error
+        ()
+
+(**
+
+    [lang=csharp]
+    static public void OrganisationNastyData(string orgName)
+    {
+        try
+        {
+            using (var myLock = provider.OrganisationLock(orgName, "NastyAPI", TimeSpan.FromMinutes(5.0)))
+            {
+                NastyAPI.DoOp();
+            } // Lock released when Disposed
+        }
+        catch (LockUnavailableException)
+        {
+        }
+        catch (LockRequestErrorException)
+        {
+        }
+    }
+
+
+And possibly more frequently, there might be a collection of accounts available within production environments for a client,
+and a separate collection for non-production testing.
+
+For our final example, 
+let's assume we have multiple accounts available in production, a single testing account, and we're willing to wait up to 2
+minutes for a lock to become available.
+
+*)
+
+type NastyAccounts =
+    {
+        OrganisationName : string
+        Environment : string
+        AccountNames : string list
+    }
+
+let flyAwayProd =
+    {
+        OrganisationName = "FlyAwayAir"
+        Environment = "PRD"
+        AccountNames = ["Nasty1";"Nasty2"]
+    }
+
+let flyAwayTest =
+    {
+        OrganisationName = "FlyAwayAir"
+        Environment = "TST"
+        AccountNames = ["Nasty1"]
+    }
+
+let otherTest =
+    {
+        OrganisationName = "OtherAir"
+        Environment = "PRD"
+        AccountNames = ["Nasty1"]
+    }
+
+let GetNastyLock accounts =
+    use lock =
+        fun () ->
+            accounts.AccountNames
+            |> OneOfLocks
+                (fun lid ->
+                    GetEnvironmentLock
+                        lserver
+                        accounts.OrganisationName
+                        accounts.Environment 
+                        (TimeSpan.FromMinutes 5.) lid)
+        |> AwaitLock (TimeSpan.FromMinutes 2.) (TimeSpan.FromMilliseconds 100.)
+    match lock with
+    | Locked lockId ->
+        // All three "Nasty1" locks might be in use concurrently here;
+        // but only one from each organisation/environment
+        NastyAPI.DoAccountOp lockId
+    | Unavailable ->
+        ()
+    | Error _ ->
+        ()
+
+(**
+
+    [lang=csharp]
+    public class NastyAccounts
+    {
+        public string OrganisationName { get; set; }
+        public List<string> AccountNames { get; set; }
+        public string Environment { get; set; }
+
+        public NastyAccounts(string orgName, string env, List<string> accounts)
+        {
+            this.OrganisationName = orgName;
+            this.Environment = env;
+            this.AccountNames = accounts;
+        }
+    }
+
+    public static NastyAccounts flyAwayProd =
+        new NastyAccounts("FlyAwayAir",
+            "PRD", new List<string> { "Nasty1", "Nasty2" });
+
+    public static NastyAccounts flyAwayTest =
+        new NastyAccounts("FlyAwayAir",
+            "TST", new List<string> { "Nasty1" });
+
+    public static NastyAccounts otherTest =
+        new NastyAccounts("OtherAir",
+            "PRD", new List<string> { "Nasty1" });
+
+    public static void GetNastyLock(NastyAccounts accounts)
+    {
+        try
+        {
+            using (var myLock = provider.AwaitOneOf(
+                id => provider.EnvironmentLock(
+                    id, accounts.OrganisationName, 
+                    accounts.Environment, TimeSpan.FromMinutes(5.0)),
+                accounts.AccountNames,
+                TimeSpan.FromMinutes(2.0),
+                TimeSpan.FromMinutes(100.0)))
+            {
+                NastyAPI.DoAccountOp(myLock.LockId);
+            }
+        }
+        catch (LockUnavailableException)
+        {
+        }
+        catch (LockRequestErrorException)
+        {
+        }
+    }
+
+
+*)

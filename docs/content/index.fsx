@@ -65,7 +65,7 @@ And C#:
                 var provider = new LockProvider("sql connection string");
                 try
                 {
-                    using (var lock2 = provider.GlobalLock("MyAppLock", TimeSpan.FromMinutes(5.0))
+                    using (var lock2 = provider.GlobalLock("MyAppLock", TimeSpan.FromMinutes(5.0)))
                     {
                         // If I get here, I've got a lock!                    
                         // Doing stuff!
