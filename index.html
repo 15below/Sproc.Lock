@@ -113,7 +113,7 @@
             <span class="k">var</span> provider <span class="o">=</span> <span class="k">new</span> LockProvider(<span class="s">"sql connection string"</span>);
             <span class="k">try</span>
             {
-                <span class="k">using</span> (<span class="k">var</span> lock2 <span class="o">=</span> provider.GlobalLock(<span class="s">"MyAppLock"</span>, TimeSpan.FromMinutes(5.0))
+                <span class="k">using</span> (<span class="k">var</span> lock2 <span class="o">=</span> provider.GlobalLock(<span class="s">"MyAppLock"</span>, TimeSpan.FromMinutes(5.0)))
                 {
                     <span class="c">// If I get here, I&amp;#39;ve got a lock!                    </span>
                     <span class="c">// Doing stuff!</span>
