@@ -34,6 +34,72 @@ let defaultTimeOut = TimeSpan.FromSeconds 5.
 
 type GetLock = GetLock of (TimeSpan -> string -> LockResult)
 type LockId = LockId of string
+type LockCommand =
+    | Lock
+    | Unlock
+
+let commandsLock = new System.Threading.Semaphore(1, 1)
+
+let rec lockedFunc refCell getLock (lock : LockResult) commands =
+    async {
+        do! Async.Sleep (rand.Next 5)
+        match commands with
+        | Lock::t ->
+            let newLock = getLock ()
+            match newLock with
+            | Locked _ ->
+                return false
+            | Unavailable ->
+                return! lockedFunc refCell getLock lock t
+            | Error _ ->
+                return false               
+        | Unlock::t ->
+            commandsLock.WaitOne() |> ignore
+            let count = !refCell
+            if count > 1 then
+                return false
+            else
+                refCell := count - 1
+                lock.Dispose()
+                commandsLock.Release() |> ignore
+                return! unlockedFunc refCell getLock (Some lock) t
+        | [] ->
+            commandsLock.WaitOne() |> ignore
+            let pass = !refCell = 1
+            refCell := 0
+            lock.Dispose()
+            commandsLock.Release() |> ignore
+            return pass
+    }
+and unlockedFunc refCell getLock maybeLock commands =
+    async {
+        do! Async.Sleep (rand.Next 5)
+        match commands with
+        | Lock::t ->
+            let newLock = getLock ()
+            match newLock with
+            | Locked l ->
+                commandsLock.WaitOne() |> ignore
+                let count = !refCell
+                if count > 0 then
+                    return false
+                else
+                    refCell := count + 1
+                    commandsLock.Release() |> ignore
+                    return! lockedFunc refCell getLock newLock t
+            | Unavailable ->
+                return! unlockedFunc refCell getLock (Some newLock) t
+            | Error _ ->
+                return false
+        | Unlock::t ->
+            maybeLock |> Option.iter (fun l -> l.Dispose()) 
+            return! unlockedFunc refCell getLock maybeLock t
+        | [] ->
+            commandsLock.WaitOne() |> ignore
+            let count = !refCell
+            commandsLock.Release() |> ignore
+            return count = 0 || count = 1
+    }
 
 type LockGenerator =
     static member GetLock () =
@@ -99,8 +165,21 @@ type Specs =
             match spare with Locked _ -> true | _ -> false
         locks |> Array.iter (fun l -> l.Dispose())
         result
+    static member ``Random locking and unlocking the same lock`` (GetLock gl) (LockId lid) (commands1 : LockCommand list) (commands2 : LockCommand list) =
+        let count = ref 0
+        let processes =
+            [|
+                unlockedFunc count (fun () -> gl defaultTimeOut lid) None commands1
+                unlockedFunc count (fun () -> gl defaultTimeOut lid) None commands2
+            |]
+        let results =
+            processes
+            |> Async.Parallel
+            |> Async.RunSynchronously
+            |> Array.reduce (&&)
+        results
 
 [<Test>]
 let ``Run properties`` () =
     Arb.register<LockGenerator>() |> ignore
-    Check.QuickThrowOnFailureAll typeof<Specs>
+    Check.VerboseThrowOnFailureAll typeof<Specs>
