@@ -39,20 +39,20 @@ DECLARE @RC int
 BEGIN TRAN
 EXEC @RC = sp_getapplock @Resource=@lockId, @LockMode='Exclusive', @LockOwner='Transaction', @LockTimeout=100
 IF @RC >= 0 BEGIN
-	IF NOT
+	IF
 		exists(
 			SELECT LockId 
 			FROM dbo.tbl_global_locks
 			WHERE LockId = @lockId
 			AND Stale > SYSUTCDATETIME())
 	BEGIN
-		DELETE FROM dbo.tbl_global_locks WHERE LockId = @lockId
-		SET @instance = NEWID()
-		INSERT INTO dbo.tbl_global_locks VALUES (@lockId, DATEADD(ms, @stale, SYSUTCDATETIME()), @instance)
+		SET @RC = -1
 	END
 	ELSE
 	BEGIN
-		SET @RC = -1
+		DELETE FROM dbo.tbl_global_locks WHERE LockId = @lockId
+		SET @instance = NEWID()
+		INSERT INTO dbo.tbl_global_locks VALUES (@lockId, DATEADD(ms, @stale, SYSUTCDATETIME()), @instance)
 	END
 END
 SELECT @RC

@@ -41,7 +41,7 @@ DECLARE @RC int
 BEGIN TRAN
 EXEC @RC = sp_getapplock @Resource=@lockId, @LockMode='Exclusive', @LockOwner='Transaction', @LockTimeout=100
 IF @RC >= 0 BEGIN
-	IF NOT
+	IF
 		exists(
 			SELECT LockId 
 			FROM dbo.tbl_environment_locks
@@ -50,14 +50,14 @@ IF @RC >= 0 BEGIN
 			AND Environment = @environment
 			AND Stale > SYSUTCDATETIME())
 	BEGIN
+		SET @RC = -1
+	END
+	ELSE
+	BEGIN
 		DELETE FROM dbo.tbl_environment_locks 
 		WHERE LockId = @lockId AND Organisation = @organisation AND environment = @environment
 		SET @instance = NEWID()
 		INSERT INTO dbo.tbl_environment_locks VALUES (@lockId, @organisation, @environment, DATEADD(ms, @stale, SYSUTCDATETIME()), @instance)
-	END
-	ELSE
-	BEGIN
-		SET @RC = -1
 	END
 END
 SELECT @RC
