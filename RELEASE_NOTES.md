@@ -1,3 +1,7 @@
+### 0.9.2 - Unreleased
+* Added additional FsCheck property
+* Saner ordering of IF statements in foidprocs
+
 ### 0.9.1 - Unreleased
 * Minor documentation fix
 

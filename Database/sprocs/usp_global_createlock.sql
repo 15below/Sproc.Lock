@@ -36,7 +36,9 @@ AS
 *******************************************************************************/
 SET NOCOUNT ON
 DECLARE @RC int
+SET @RC = 1
 BEGIN TRAN
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
 EXEC @RC = sp_getapplock @Resource=@lockId, @LockMode='Exclusive', @LockOwner='Transaction', @LockTimeout=100
 IF @RC >= 0 BEGIN
 	IF
