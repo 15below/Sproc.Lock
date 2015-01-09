@@ -15,7 +15,7 @@ PRINT 'Creating Procedure usp_global_createlock'
 GO
 
 CREATE Procedure usp_global_createlock
-	@lockId nvarchar(38),
+	@lockId nvarchar(44),
 	@stale int,	
 	@instance uniqueidentifier OUT
 AS

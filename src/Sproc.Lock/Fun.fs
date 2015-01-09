@@ -4,6 +4,8 @@ module Sproc.Lock.Fun
 open System
 open System.Data
 open System.Data.SqlClient
+open System.Security.Cryptography
+open System.Text
 
 let private AddP<'a> (command : SqlCommand) =
     fun name (value : 'a) ->
@@ -14,53 +16,62 @@ let private AddO<'a> (command : SqlCommand) =
         let output = SqlParameter(name, t, Direction = ParameterDirection.Output)
         command.Parameters.Add output
 
-let private rand = Random()
+type Hashed = Hashed of string
+
+let (!!>) (str : string) =
+    use hash =
+        SHA256.Create()
+    Encoding.UTF8.GetBytes str
+    |> hash.ComputeHash
+    |> Convert.ToBase64String
+
+let (!!) = (!!>) >> Hashed
 
 /// Type representing a Lock that has definitely been acquired. Locks are
 /// IDisposable; disposing the lock will ensure it is released.
 type Lock =
      /// A lock that applies globally across the lock server
-     | Global of connString : string * lockId : string * instance : Guid
+     | Global of connString : string * lockId : string * hashed : Hashed * instance : Guid
      /// A lock scoped to a specific organisation
-     | Organisation of connString : string * lockId : string * organisation : string * instance : Guid
+     | Organisation of connString : string * lockId : string * hashed : Hashed * organisation : Hashed * instance : Guid
      /// A lock scoped to a particular environment belonging to a particular organisation
-     | Environment of connString : string * lockId : string * organisation : string * environment : string * instance : Guid
+     | Environment of connString : string * lockId : string * hashed : Hashed * organisation : Hashed * environment : Hashed * instance : Guid
      /// The LockId acquired. Useful in combination when getting one of a list of locks to determine which was free.
      member lock.LockId =
         match lock with
-        | Global (_, name, _)
-        | Organisation (_, name, _, _)
-        | Environment (_, name, _, _, _) ->
+        | Global (_, name, _, _)
+        | Organisation (_, name, _, _, _)
+        | Environment (_, name, _, _, _, _) ->
             name
      /// Disposing releases the lock
      member lock.Dispose () =
         match lock with
-        | Global (connString, lockId, instance) ->
+        | Global (connString, _, (Hashed hash), instance) ->
             use conn = new SqlConnection(connString)
             conn.Open()
             use dropDbLock = conn.CreateCommand()
             dropDbLock.CommandType <- CommandType.StoredProcedure
             dropDbLock.CommandText <- "usp_global_droplock"
-            AddP dropDbLock "lockId" lockId
+            AddP dropDbLock "lockId" hash
             AddP dropDbLock "instance" instance
             dropDbLock.ExecuteScalar() |> ignore
-        | Organisation (connString, lockId, org, instance) ->
+        | Organisation (connString, _, (Hashed hash), (Hashed org), instance) ->
             use conn = new SqlConnection(connString)
             conn.Open()
             use dropDbLock = conn.CreateCommand()
             dropDbLock.CommandType <- CommandType.StoredProcedure
             dropDbLock.CommandText <- "usp_organisation_droplock"
-            AddP dropDbLock "lockId" lockId
+            AddP dropDbLock "lockId" hash
             AddP dropDbLock "organisation" org
             AddP dropDbLock "instance" instance
             dropDbLock.ExecuteScalar() |> ignore
-        | Environment (connString, lockId, org, env, instance) ->
+        | Environment (connString, _, (Hashed hash), (Hashed org), (Hashed env), instance) ->
             use conn = new SqlConnection(connString)
             conn.Open()
             use dropDbLock = conn.CreateCommand()
             dropDbLock.CommandType <- CommandType.StoredProcedure
             dropDbLock.CommandText <- "usp_environment_droplock"
-            AddP dropDbLock "lockId" lockId
+            AddP dropDbLock "lockId" hash
             AddP dropDbLock "organisation" org
             AddP dropDbLock "environment" env
             AddP dropDbLock "instance" instance
@@ -98,15 +109,16 @@ let GetGlobalLock connString (maxDuration : TimeSpan) lockIdentifier =
         use conn = new SqlConnection(connString)
         conn.Open()
         use getDbLock = conn.CreateCommand()
+        let hId = !!> lockIdentifier
         getDbLock.CommandType <- CommandType.StoredProcedure
         getDbLock.CommandText <- "usp_global_createlock"
-        AddP getDbLock "lockId" lockIdentifier
+        AddP getDbLock "lockId" hId
         AddP getDbLock "stale" (maxDuration.TotalMilliseconds)
         let instanceParameter = AddO getDbLock "instance" SqlDbType.UniqueIdentifier
         let result = getDbLock.ExecuteScalar() :?> int
         match result with
         | i when i >= 0 ->
-            Locked <| (Global (connString, lockIdentifier, instanceParameter.Value :?> Guid))
+            Locked <| (Global (connString, lockIdentifier, Hashed hId, instanceParameter.Value :?> Guid))
         | i when i = -1 ->
             Unavailable
         | i -> Error i
@@ -116,45 +128,54 @@ let GetGlobalLock connString (maxDuration : TimeSpan) lockIdentifier =
 /// lock will become "stale" and will be automatically released to the
 /// next requester.
 let GetOrganisationLock connString organisation (maxDuration : TimeSpan) lockIdentifier =
-    use conn = new SqlConnection(connString)
-    conn.Open()
-    use getDbLock = conn.CreateCommand()
-    getDbLock.CommandType <- CommandType.StoredProcedure
-    getDbLock.CommandText <- "usp_organisation_createlock"
-    AddP getDbLock "lockId" lockIdentifier
-    AddP getDbLock "organisation" organisation
-    AddP getDbLock "stale" (maxDuration.TotalMilliseconds)
-    let instanceParameter = AddO getDbLock "instance" SqlDbType.UniqueIdentifier
-    let result = getDbLock.ExecuteScalar() :?> int
-    match result with
-    | i when i >= 0 ->
-        Locked <| (Organisation (connString, lockIdentifier, organisation, instanceParameter.Value :?> Guid))
-    | i when i = -1 ->
-        Unavailable
-    | i -> Error i
+    if maxDuration < TimeSpan.Zero then Error -999
+    else
+        use conn = new SqlConnection(connString)
+        conn.Open()
+        use getDbLock = conn.CreateCommand()
+        let hId = !!> lockIdentifier
+        let hOrg = !!> organisation
+        getDbLock.CommandType <- CommandType.StoredProcedure
+        getDbLock.CommandText <- "usp_organisation_createlock"
+        AddP getDbLock "lockId" hId
+        AddP getDbLock "organisation" hOrg
+        AddP getDbLock "stale" (maxDuration.TotalMilliseconds)
+        let instanceParameter = AddO getDbLock "instance" SqlDbType.UniqueIdentifier
+        let result = getDbLock.ExecuteScalar() :?> int
+        match result with
+        | i when i >= 0 ->
+            Locked <| (Organisation (connString, lockIdentifier, Hashed hId, Hashed hOrg, instanceParameter.Value :?> Guid))
+        | i when i = -1 ->
+            Unavailable
+        | i -> Error i
 
 /// Attempts to acquire an environment scoped lock from the specified server with
 /// the specified lockIdentifier. After maxDuration has elapsed the
 /// lock will become "stale" and will be automatically released to the
 /// next requester.
 let GetEnvironmentLock connString organisation environment (maxDuration : TimeSpan) lockIdentifier =
-    use conn = new SqlConnection(connString)
-    conn.Open()
-    use getDbLock = conn.CreateCommand()
-    getDbLock.CommandType <- CommandType.StoredProcedure
-    getDbLock.CommandText <- "usp_environment_createlock"
-    AddP getDbLock "lockId" lockIdentifier
-    AddP getDbLock "organisation" organisation
-    AddP getDbLock "environment" environment
-    AddP getDbLock "stale" (maxDuration.TotalMilliseconds)
-    let instanceParameter = AddO getDbLock "instance" SqlDbType.UniqueIdentifier
-    let result = getDbLock.ExecuteScalar() :?> int
-    match result with
-    | i when i >= 0 ->
-        Locked <| (Environment (connString, lockIdentifier, organisation, environment, instanceParameter.Value :?> Guid))
-    | i when i = -1 ->
-        Unavailable
-    | i -> Error i
+    if maxDuration < TimeSpan.Zero then Error -999
+    else
+        use conn = new SqlConnection(connString)
+        conn.Open()
+        use getDbLock = conn.CreateCommand()
+        let hId = !!> lockIdentifier
+        let hOrg = !!> organisation
+        let hEnv = !!> environment
+        getDbLock.CommandType <- CommandType.StoredProcedure
+        getDbLock.CommandText <- "usp_environment_createlock"
+        AddP getDbLock "lockId" hId
+        AddP getDbLock "organisation" hOrg
+        AddP getDbLock "environment" hEnv
+        AddP getDbLock "stale" (maxDuration.TotalMilliseconds)
+        let instanceParameter = AddO getDbLock "instance" SqlDbType.UniqueIdentifier
+        let result = getDbLock.ExecuteScalar() :?> int
+        match result with
+        | i when i >= 0 ->
+            Locked <| (Environment (connString, lockIdentifier, (Hashed hId), (Hashed hOrg), (Hashed hEnv), instanceParameter.Value :?> Guid))
+        | i when i = -1 ->
+            Unavailable
+        | i -> Error i
 
 /// Drop a lock. Equivilent to calling ``Lock.Dispose()``.
 let DropLock (lock : Lock) =
@@ -183,6 +204,7 @@ let AwaitLock (timeOut : TimeSpan) (interval : TimeSpan) getLock =
         raise e
 
 let private shuffle xs =
+    let rand = Random()
     let arr = xs |> Seq.toArray
     for i in 0..(arr.Length - 1) do
         let j = rand.Next(i, arr.Length)

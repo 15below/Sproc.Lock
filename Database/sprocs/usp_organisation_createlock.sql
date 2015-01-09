@@ -15,8 +15,8 @@ PRINT 'Creating Procedure usp_organisation_createlock'
 GO
 
 CREATE Procedure usp_organisation_createlock
-	@lockId nvarchar(38),
-	@organisation nvarchar(38),
+	@lockId nvarchar(44),
+	@organisation nvarchar(44),
 	@stale int,	
 	@instance uniqueidentifier OUT
 AS
@@ -40,7 +40,8 @@ DECLARE @RC int
 SET @RC = 1
 BEGIN TRAN
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
-EXEC @RC = sp_getapplock @Resource=@lockId, @LockMode='Exclusive', @LockOwner='Transaction', @LockTimeout=100
+DECLARE @appLockId nvarchar(255) = @lockId + @organisation
+EXEC @RC = sp_getapplock @Resource=@appLockId, @LockMode='Exclusive', @LockOwner='Transaction', @LockTimeout=500
 IF @RC >= 0 BEGIN
 	IF
 		exists(

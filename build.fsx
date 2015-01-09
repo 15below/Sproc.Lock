@@ -3,6 +3,7 @@
 // --------------------------------------------------------------------------------------
 
 #r @"packages/FAKE/tools/FakeLib.dll"
+#r @"System.Data"
 
 open Fake
 open Fake.Git
@@ -84,6 +85,33 @@ Target "DeployDatabase" (fun _ ->
                     CommandLine = "--silent" }
     if retCode <> 0 then
         failwithf "Roundhouse failure: %d" retCode
+)
+
+Target "CleanDatabase" (fun _ ->
+    let server = environVarOrDefault "LockConnString" "Server=(local);Database=Lock;Trusted_Connection=True;"
+    let nastyHackSQL = """
+DECLARE @tableName NVARCHAR(255)
+
+SELECT @tableName = MIN(TABLE_NAME) FROM information_schema.tables WHERE TABLE_SCHEMA = 'dbo'
+
+WHILE @tableName is not null
+BEGIN
+	exec ('DROP TABLE [dbo].[' + @tableName + ']')
+	SELECT @tableName = MIN(TABLE_NAME) FROM information_schema.tables WHERE TABLE_SCHEMA = 'dbo'
+END
+
+SELECT @tableName = MIN(TABLE_NAME) FROM information_schema.tables WHERE TABLE_SCHEMA = 'RoundhousE'
+
+WHILE @tableName is not null
+BEGIN
+	exec ('DROP TABLE [RoundhousE].[' + @tableName + ']')
+	SELECT @tableName = MIN(TABLE_NAME) FROM information_schema.tables WHERE TABLE_SCHEMA = 'RoundhousE'
+END
+"""
+    use conn = new System.Data.SqlClient.SqlConnection(server)
+    conn.Open()
+    use dropTables = new System.Data.SqlClient.SqlCommand(nastyHackSQL, conn)
+    dropTables.ExecuteNonQuery() |> ignore
 )
 
 // --------------------------------------------------------------------------------------

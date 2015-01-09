@@ -15,7 +15,7 @@ PRINT 'Creating Procedure usp_global_droplock'
 GO
 
 CREATE Procedure usp_global_droplock
-	@lockId nvarchar(38),
+	@lockId nvarchar(44),
 	@instance uniqueidentifier
 AS
 
@@ -36,14 +36,16 @@ AS
 SET NOCOUNT ON
 DECLARE @RC int
 BEGIN TRAN
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
 EXEC @RC = sp_getapplock @Resource=@lockId, @LockMode='Exclusive', @LockOwner='Transaction', @LockTimeout=500
 IF @RC >= 0 BEGIN
 	IF exists(
 		SELECT LockId 
 		FROM dbo.tbl_global_locks 
 		WHERE LockId = @lockId
-		AND InstanceId = @instance) BEGIN
-		DELETE FROM dbo.tbl_global_locks 
+		AND InstanceId = @instance)
+	BEGIN
+		DELETE FROM dbo.tbl_global_locks WITH (ROWLOCK, READPAST)
 		WHERE
 			LockId = @lockId
 	END

@@ -15,9 +15,9 @@ PRINT 'Creating Procedure usp_environment_droplock'
 GO
 
 CREATE Procedure usp_environment_droplock
-	@lockId nvarchar(38),
-	@organisation nvarchar(38),
-	@environment nvarchar(38),
+	@lockId nvarchar(44),
+	@organisation nvarchar(44),
+	@environment nvarchar(44),
 	@instance uniqueidentifier
 AS
 
@@ -38,7 +38,9 @@ AS
 SET NOCOUNT ON
 DECLARE @RC int
 BEGIN TRAN
-EXEC @RC = sp_getapplock @Resource=@lockId, @LockMode='Exclusive', @LockOwner='Transaction', @LockTimeout=500
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+DECLARE @appLockId nvarchar(255) = @lockId + @organisation + @environment
+EXEC @RC = sp_getapplock @Resource=@appLockId, @LockMode='Exclusive', @LockOwner='Transaction', @LockTimeout=500
 IF @RC >= 0 BEGIN
 	IF exists(
 		SELECT LockId 
@@ -46,8 +48,9 @@ IF @RC >= 0 BEGIN
 		WHERE LockId = @lockId
 		AND Organisation = @organisation
 		AND Environment = @environment
-		AND InstanceId = @instance) BEGIN
-		DELETE FROM dbo.tbl_environment_locks 
+		AND InstanceId = @instance)
+	BEGIN
+		DELETE FROM dbo.tbl_environment_locks WITH (ROWLOCK, READPAST)
 		WHERE LockId = @lockId
 		AND Organisation = @organisation
 		AND environment = @environment			

@@ -5,9 +5,9 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[tbl_environment_locks](
-	[LockId] [nvarchar](38) NOT NULL,
-	[Organisation] [nvarchar](38) NOT NULL,
-	[Environment] [nvarchar](38) NOT NULL,
+	[LockId] [nvarchar](44) NOT NULL,
+	[Organisation] [nvarchar](44) NOT NULL,
+	[Environment] [nvarchar](44) NOT NULL,
 	[Stale] [datetime] NOT NULL,
 	[InstanceId] [uniqueidentifier] NOT NULL
 ) ON [PRIMARY]

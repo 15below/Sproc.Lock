@@ -7,8 +7,6 @@ open Sproc.Lock.Fun
 open Sproc.Lock.OO
 open Sproc.Lock.Tests
 
-let org = "MyOrg"
-let env = "MyEnv"
 let lockProvider = LockProvider(connString)
 let rand = System.Random()
 
@@ -20,20 +18,32 @@ let lockToResult func =
         | :? LockUnavailableException -> Unavailable
         | :? LockRequestErrorException as e -> Error (e.LockErrorCode)    
 
-let lockFuncs =
+let globalLockFuncs =
     [
         GetGlobalLock connString
-        GetOrganisationLock connString org
-        GetEnvironmentLock connString org env
         (fun ts lid -> lockProvider.GlobalLock(lid, ts)) |> lockToResult
-        (fun ts lid -> lockProvider.OrganisationLock(lid, org, ts)) |> lockToResult
-        (fun ts lid -> lockProvider.EnvironmentLock(lid, org, env, ts)) |> lockToResult
+    ]
+
+let organisationLockFuncs =
+    [
+        GetOrganisationLock connString
+        fun org -> (fun ts lid -> lockProvider.OrganisationLock(lid, org, ts)) |> lockToResult
+    ]
+
+let environmentLockFuncs =
+    [
+        GetEnvironmentLock connString
+        fun org env -> (fun ts lid -> lockProvider.EnvironmentLock(lid, org, env, ts)) |> lockToResult
     ]
 
 let defaultTimeOut = TimeSpan.FromSeconds 5.
 
 type GetLock = GetLock of (TimeSpan -> string -> LockResult)
 type LockId = LockId of string
+type LockType =
+    | Global
+    | Organisation
+    | Environment
 type LockCommand =
     | Lock
     | Unlock
@@ -104,15 +114,32 @@ and unlockedFunc refCell getLock maybeLock commands =
 type LockGenerator =
     static member GetLock () =
         gen {
-            let! getLock =
-                List.length lockFuncs - 1 |> (fun i -> Gen.choose (0, i))
-                |> Gen.map (fun i -> lockFuncs.[i])
-            return GetLock getLock
+            let! lockType = Arb.generate<LockType>
+            match lockType with
+            | Global ->
+                let! getLock =
+                    List.length globalLockFuncs - 1 |> (fun i -> Gen.choose (0, i))
+                    |> Gen.map (fun i -> globalLockFuncs.[i])
+                return GetLock getLock
+            | Organisation ->
+                let! getLockOrg =
+                    List.length organisationLockFuncs - 1 |> (fun i -> Gen.choose (0, i))
+                    |> Gen.map (fun i -> organisationLockFuncs.[i])
+                let! (NonEmptyString org) =
+                    Arb.Default.NonEmptyString().Generator
+                return GetLock (getLockOrg org)
+            | Environment ->
+                let! getLockOrg =
+                    List.length environmentLockFuncs - 1 |> (fun i -> Gen.choose (0, i))
+                    |> Gen.map (fun i -> environmentLockFuncs.[i])
+                let! (NonEmptyString org) = Arb.Default.NonEmptyString().Generator
+                let! (NonEmptyString env) = Arb.Default.NonEmptyString().Generator
+                return GetLock (getLockOrg org env)
         } |> Arb.fromGen
     static member LockId () =
         gen {
-            let! guid = Arb.generate<Guid>
-            return LockId (sprintf "%A" guid)
+            let! (NonEmptyString guid) = Arb.Default.NonEmptyString().Generator
+            return LockId guid
         } |> Arb.fromGen
 
 type Specs =
@@ -123,9 +150,11 @@ type Specs =
         | Unavailable -> true
         | _ -> false
     static member ``Can get two different locks at the same time`` (GetLock gl) (LockId l1) (LockId l2) =
-        use lock1 = gl defaultTimeOut l1
-        use lock2 = gl defaultTimeOut l2
-        (match lock1 with Locked _ -> true | _ -> false) && (match lock2 with Locked _ -> true | _ -> false)
+        if l1 = l2 then true
+        else
+            use lock1 = gl defaultTimeOut l1
+            use lock2 = gl defaultTimeOut l2
+            (match lock1 with Locked _ -> true | _ -> false) && (match lock2 with Locked _ -> true | _ -> false)
     static member ``Can await lock release`` (GetLock gl) (LockId lockId) =
         use lock1 = gl (TimeSpan.FromMilliseconds 10.) lockId
         use lock2 = AwaitLock (defaultTimeOut) (TimeSpan.FromMilliseconds 15.) (fun () -> gl defaultTimeOut lockId)
@@ -136,7 +165,7 @@ type Specs =
         use lock2 = gl defaultTimeOut lockId
         match lock2 with Locked _ -> true | _ -> false
     static member ``Get all of a list of locks`` (GetLock gl) (ids : LockId list) =
-        let idStrs = ids |> List.map (fun (LockId i) -> i)
+        let idStrs = ids |> Seq.distinct |> List.ofSeq |> List.map (fun (LockId i) -> i)
         let locks =
             [|for i in 1..List.length idStrs -> async { return OneOfLocks (gl defaultTimeOut) idStrs }|]
             |> Async.Parallel
@@ -153,8 +182,9 @@ type Specs =
     static member ``Freeing one of a list of locks should always leave one free`` (GetLock gl) (ids : NonEmptyArray<LockId>) =
         let idStrs =
             ids.Get
-            |> Array.map (fun (LockId i) -> i)
-            |> List.ofArray
+            |> Seq.distinct
+            |> Seq.map (fun (LockId i) -> i)
+            |> List.ofSeq
         let locks =
             [|for i in 1..List.length idStrs -> async { return OneOfLocks (gl defaultTimeOut) idStrs }|]
             |> Async.Parallel
