@@ -1,0 +1,114 @@
+html, body { height: 100%; }
+
+body { font-size: 16px; font-family: helvetica, arial, sans-serif; }
+
+a:active, a:focus { outline: 0; }
+
+.no-padding { padding: none; }
+
+.no-margin { margin: none; }
+
+header { display: block; height: 100px; width: 100%; background: #426174 url(../img/header-infographic.gif) top center no-repeat; margin-bottom: 30px; }
+header a.sproc-lock-logo { display: block; float: left; opacity: 0.85; width: 191px; height: 37px; background: transparent url(../img/logo-sproc-lock.png) top left no-repeat; background-size: auto 100%; margin: 32px 0 0 0; }
+header a:hover.sproc-lock-logo { opacity: 1; }
+header ul.nav { width: auto; float: right; text-align: left; height: 36px; margin: 4px 0 0 0; }
+header ul.nav li a { color: #dddddd; padding: 3px 10px 3px 10px; border-right: 1px solid #dddddd; border-radius: 0; background: none; }
+header ul.nav li a:hover { background: transparent; color: #ffffff; }
+header ul.nav li:last-child a { border: 0; padding-right: 0; }
+header .logo-15below { display: block; float: right; width: 121px; height: 36px; background: transparent url("../img/logo-15below.png") top right no-repeat; color: transparent; margin: 20px 0 0 0; }
+
+#main { float: left; font-family: helvetica, arial, sans-serif; line-height: 22px; }
+#main p { color: #888888; }
+#main h1, #main h2, #main h3, #main h4 { color: #1e1e1e; }
+#main h1 { font-size: 30px; margin: 10px 0px 20px; }
+#main h1:first-child { margin-top: 0; }
+#main h2 { font-size: 21px; margin: 25px 0px 10px; }
+#main h3 { font-size: 16px; margin: 25px 0px 0px; }
+#main h4 { font-size: 16px; margin: 15px 0 5px 0; color: #6f6f6f; }
+#main ul li, #main ol li { color: #888888; }
+
+#sidebar { background-color: #eeeeee; }
+#sidebar ul { margin-top: 0; }
+#sidebar ul li a, #sidebar ul li a:focus { color: #666666; }
+#sidebar ul li a:hover, #sidebar ul li a:active { color: #111111; }
+#sidebar ul li.nav-header { color: #e00034; font-size: 21px; margin: 25px -16px 0px -21px; padding: 15px 15px 10px 21px; font-family: helvetica, arial, sans-serif; border-top: 3px solid white; text-transform: none; }
+#sidebar ul li.nav-header:first-child { border-top: none; margin-top: 0; }
+#sidebar ul li.divider { background-color: transparent; border-bottom: 1px dotted #aaaaaa; }
+
+/*--------------------------------------------------------------------------  Formatting for F# code snippets 
+/*--------------------------------------------------------------------------*/
+/* identifier */
+span.i { color: #d1d1d1; }
+
+/* string */
+span.s { color: #d4b43c; }
+
+/* keywords */
+span.k { color: #4e98dc; }
+
+/* comment */
+span.c { color: #96C71D; }
+
+/* operators */
+span.o { color: #af75c1; }
+
+/* numbers */
+span.n { color: #96C71D; }
+
+/* line number */
+span.l { color: #80b0b0; }
+
+/* inactive code */
+span.inactive { color: #808080; }
+
+/* preprocessor */
+span.prep { color: #af75c1; }
+
+/* fsi output */
+span.fsi { color: #808080; }
+
+/* omitted */
+span.omitted { background: #3c4e52; border-radius: 5px; color: #808080; padding: 0px 0px 1px 0px; }
+
+/* tool tip */
+div.tip { background: #475b5f; border-radius: 4px; font: 11pt 'Droid Sans', arial, sans-serif; padding: 6px 8px 6px 8px; display: none; color: #d1d1d1; }
+
+table.pre pre { padding: 0px; margin: 0px; border: none; }
+
+table.pre, pre.fssnip, pre { line-height: 13pt; border: 1px solid #d8d8d8; border-collapse: separate; white-space: pre; font: 9pt 'Droid Sans Mono',consolas,monospace; width: 90%; margin: 10px 20px 20px 20px; background-color: #212d30; padding: 10px; border-radius: 5px; color: #d1d1d1; }
+
+table.pre pre { padding: 0px; margin: 0px; border-radius: 0px; width: 100%; }
+
+table.pre td { padding: 0px; white-space: normal; margin: 0px; }
+
+table.pre td.lines { width: 30px; }
+
+/*--------------------------------------------------------------------------  Formatting for API reference
+/*--------------------------------------------------------------------------*/
+.type-list .type-name, .module-list .module-name { width: 25%; font-weight: bold; }
+
+.member-list .member-name { width: 35%; }
+
+#main .xmldoc h2 { font-size: 14pt; margin: 10px 0px 0px 0px; }
+
+#main .xmldoc h3 { font-size: 12pt; margin: 10px 0px 0px 0px; }
+
+.github-link { float: right; text-decoration: none; }
+
+.github-link img { border-style: none; margin-left: 10px; }
+
+.github-link .hover { display: none; }
+
+.github-link:hover .hover { display: block; }
+
+.github-link .normal { display: block; }
+
+.github-link:hover .normal { display: none; }
+
+/*--------------------------------------------------------------------------  Additional formatting for the homepage 
+/*--------------------------------------------------------------------------*/
+#nuget { margin-top: 20px; font-size: 11pt; padding: 20px; }
+
+#nuget pre { font-size: 11pt; -moz-border-radius: 0px; -webkit-border-radius: 0px; border-radius: 0px; background: #404040; border-style: none; color: #e0e0e0; margin-top: 15px; }
+
+/*# sourceMappingURL=15b-style.css.map */

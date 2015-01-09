@@ -1,34 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <title>Fun - Sproc.Lock</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="description" content=""/>
-    <meta name="author" content="Michael Newton"/>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Fun - Sproc.Lock</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="description" content=""/>
+        <meta name="author" content="Michael Newton"/>
+    
+        <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+        <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+        <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
 
-    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
-    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
-    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
-
-    <link type="text/css" rel="stylesheet" href="/Sproc.Lock/content/style.css" />
-    <script type="text/javascript" src="/Sproc.Lock/content/tips.js"></script>
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
+        <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+        <!--<link type="text/css" rel="stylesheet" href="Sproc.Lock%20Home_files/style.css">-->
+        <link type="text/css" rel="stylesheet" href="/Sproc.Lock/css/15b-style.css" />
+        
+        <script type="text/javascript" src="/Sproc.Lock/content/tips.js"></script>
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
   <body>
+    <header>
+        <div class="container">
+            <a href="http://15below.github.io/Sproc.Lock/index.html" class="sproc-lock-logo"></a>
+            <div class="header-block span8 pull-right">
+                <div class="row no-margin">
+                    <div class="logo-15below">15below</div>
+                </div>
+                <div class="row no-margin">
+                    <ul class="nav nav-pills pull-right">
+                        <li><a href="http://15below.com">15below.com</a></li>
+                        <li><a href="http://github.com/15below/Sproc.Lock">github page</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
     <div class="container">
-      <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-          <li><a href="http://15below.com">15below.com</a></li>
-          <li><a href="http://github.com/15below/Sproc.Lock">github page</a></li>
-        </ul>
-        <h3 class="muted"><a href="/Sproc.Lock/index.html">Sproc.Lock</a></h3>
-      </div>
-      <hr />
       <div class="row">
         <div class="span9" id="main">
           
@@ -48,6 +58,12 @@
       <tr><td>Type</td><td>Description</td></tr>
     </thead>
     <tbody>
+        <tr>
+          <td class="type-name">
+            <a href="sproc-lock-fun-hashed.html">Hashed</a>
+          </td>
+          <td class="xmldoc"></td>
+        </tr>
         <tr>
           <td class="type-name">
             <a href="sproc-lock-fun-lock.html">Lock</a>
@@ -78,14 +94,50 @@ IDisposable; disposing the lock will ensure it is released.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '1', 1)" onmouseover="showTip(event, '1', 1)">
-            AwaitLock timeOut interval getLock
+            ( !! ) 
           </code>
           <div class="tip" id="1">
+            <strong>Signature:</strong> string -&gt; Hashed<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L28-28" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2', 2)" onmouseover="showTip(event, '2', 2)">
+            ( !!&gt; ) str
+          </code>
+          <div class="tip" id="2">
+            <strong>Signature:</strong> str:string -&gt; string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L21-21" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '3', 3)" onmouseover="showTip(event, '3', 3)">
+            AwaitLock timeOut interval getLock
+          </code>
+          <div class="tip" id="3">
             <strong>Signature:</strong> timeOut:TimeSpan -&gt; interval:TimeSpan -&gt; getLock:(unit -&gt; LockResult) -&gt; LockResult<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L164-164" class="github-link">
+            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L185-185" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -96,15 +148,15 @@ IDisposable; disposing the lock will ensure it is released.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '2', 2)" onmouseover="showTip(event, '2', 2)">
+          <code onmouseout="hideTip(event, '4', 4)" onmouseover="showTip(event, '4', 4)">
             DropLock lock
           </code>
-          <div class="tip" id="2">
+          <div class="tip" id="4">
             <strong>Signature:</strong> lock:Lock -&gt; unit<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L160-160" class="github-link">
+            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L181-181" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -115,15 +167,15 @@ IDisposable; disposing the lock will ensure it is released.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '3', 3)" onmouseover="showTip(event, '3', 3)">
+          <code onmouseout="hideTip(event, '5', 5)" onmouseover="showTip(event, '5', 5)">
             GetEnvironmentLock (...)
           </code>
-          <div class="tip" id="3">
+          <div class="tip" id="5">
             <strong>Signature:</strong> connString:string -&gt; organisation:string -&gt; environment:string -&gt; maxDuration:TimeSpan -&gt; lockIdentifier:string -&gt; LockResult<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L140-140" class="github-link">
+            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L156-156" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -137,15 +189,15 @@ next requester.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '4', 4)" onmouseover="showTip(event, '4', 4)">
+          <code onmouseout="hideTip(event, '6', 6)" onmouseover="showTip(event, '6', 6)">
             GetGlobalLock (...)
           </code>
-          <div class="tip" id="4">
+          <div class="tip" id="6">
             <strong>Signature:</strong> connString:string -&gt; maxDuration:TimeSpan -&gt; lockIdentifier:string -&gt; LockResult<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L95-95" class="github-link">
+            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L106-106" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -159,15 +211,15 @@ next requester.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '5', 5)" onmouseover="showTip(event, '5', 5)">
+          <code onmouseout="hideTip(event, '7', 7)" onmouseover="showTip(event, '7', 7)">
             GetOrganisationLock (...)
           </code>
-          <div class="tip" id="5">
+          <div class="tip" id="7">
             <strong>Signature:</strong> connString:string -&gt; organisation:string -&gt; maxDuration:TimeSpan -&gt; lockIdentifier:string -&gt; LockResult<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L118-118" class="github-link">
+            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L130-130" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -181,15 +233,15 @@ next requester.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '6', 6)" onmouseover="showTip(event, '6', 6)">
+          <code onmouseout="hideTip(event, '8', 8)" onmouseover="showTip(event, '8', 8)">
             OneOfLocks getLock lockIds
           </code>
-          <div class="tip" id="6">
-            <strong>Signature:</strong> getLock:(&#39;?6149 -&gt; LockResult) -&gt; lockIds:seq&lt;&#39;?6149&gt; -&gt; LockResult<br />
-                          <strong>Type parameters:</strong> '?6149          </div>
+          <div class="tip" id="8">
+            <strong>Signature:</strong> getLock:(&#39;?6160 -&gt; LockResult) -&gt; lockIds:seq&lt;&#39;?6160&gt; -&gt; LockResult<br />
+                          <strong>Type parameters:</strong> '?6160          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L197-197" class="github-link">
+            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L219-219" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -203,9 +255,8 @@ through them in a random order.</p>
   </table>
 
         </div>
-        <div class="span3">
-          <img src="/Sproc.Lock/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
-          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+        <div id="sidebar" class="span3">
+          <ul class="nav nav-list" id="menu">
             <li class="nav-header">Sproc.Lock</li>
             <li><a href="/Sproc.Lock/index.html">Home page</a></li>
             <li class="divider"></li>

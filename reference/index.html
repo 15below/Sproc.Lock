@@ -1,34 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <title>Namespaces - Sproc.Lock</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="description" content=""/>
-    <meta name="author" content="Michael Newton"/>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Namespaces - Sproc.Lock</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="description" content=""/>
+        <meta name="author" content="Michael Newton"/>
+    
+        <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+        <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+        <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
 
-    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
-    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
-    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
-
-    <link type="text/css" rel="stylesheet" href="/Sproc.Lock/content/style.css" />
-    <script type="text/javascript" src="/Sproc.Lock/content/tips.js"></script>
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
+        <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+        <!--<link type="text/css" rel="stylesheet" href="Sproc.Lock%20Home_files/style.css">-->
+        <link type="text/css" rel="stylesheet" href="/Sproc.Lock/css/15b-style.css" />
+        
+        <script type="text/javascript" src="/Sproc.Lock/content/tips.js"></script>
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
   <body>
+    <header>
+        <div class="container">
+            <a href="http://15below.github.io/Sproc.Lock/index.html" class="sproc-lock-logo"></a>
+            <div class="header-block span8 pull-right">
+                <div class="row no-margin">
+                    <div class="logo-15below">15below</div>
+                </div>
+                <div class="row no-margin">
+                    <ul class="nav nav-pills pull-right">
+                        <li><a href="http://15below.com">15below.com</a></li>
+                        <li><a href="http://github.com/15below/Sproc.Lock">github page</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
     <div class="container">
-      <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-          <li><a href="http://15below.com">15below.com</a></li>
-          <li><a href="http://github.com/15below/Sproc.Lock">github page</a></li>
-        </ul>
-        <h3 class="muted"><a href="/Sproc.Lock/index.html">Sproc.Lock</a></h3>
-      </div>
-      <hr />
       <div class="row">
         <div class="span9" id="main">
           
@@ -88,9 +98,8 @@
     </div>
 
         </div>
-        <div class="span3">
-          <img src="/Sproc.Lock/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
-          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+        <div id="sidebar" class="span3">
+          <ul class="nav nav-list" id="menu">
             <li class="nav-header">Sproc.Lock</li>
             <li><a href="/Sproc.Lock/index.html">Home page</a></li>
             <li class="divider"></li>
