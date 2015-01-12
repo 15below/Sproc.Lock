@@ -1,3 +1,6 @@
+### 1.0.0-beta2 - Updated docs
+* Proof read, css fixes
+
 ### 1.0.0-beta1 - Adaptive polling
 * Remove polling interval parameter from Await methods
 * Make Await polling "adaptive" (rapid initially, throttling back if lock unavailable)

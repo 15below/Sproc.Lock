@@ -19,7 +19,7 @@ the credentials of the user running the build scripts; setting an environment va
 called ``LockConnString`` with an alternative connection string will override this and
 both deploy and test Sproc.Lock on the server of your choice.
 
-Use a server is deployed, using the library is easy. Let's assume that we have a third
+Once a server is deployed, using the library is easy. Let's assume that we have a third
 party service called ``NastyAPI`` which we only have one account for.
 
 We'd like to write a service that only calls NastyAPI if no one else is, to avoid punitive
@@ -133,7 +133,7 @@ let WaitForNastyData () =
 
 
 This code is very similar to the code above, except that if the lock is not immediately
-available, it will check every repeatedly for the next 5 minutes until it is.
+available, it will check repeatedly for the next 5 minutes until it is.
 
 Only after the 5 minutes is up will it then report the lock unavailable; if it acquires
 it on any of the attempts inbetween it will call NastyAPI.
