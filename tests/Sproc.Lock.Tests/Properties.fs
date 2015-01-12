@@ -157,7 +157,7 @@ type Specs =
             (match lock1 with Locked _ -> true | _ -> false) && (match lock2 with Locked _ -> true | _ -> false)
     static member ``Can await lock release`` (GetLock gl) (LockId lockId) =
         use lock1 = gl (TimeSpan.FromMilliseconds 10.) lockId
-        use lock2 = AwaitLock (defaultTimeOut) (TimeSpan.FromMilliseconds 15.) (fun () -> gl defaultTimeOut lockId)
+        use lock2 = AwaitLock (defaultTimeOut) (fun () -> gl defaultTimeOut lockId)
         match lock2 with Locked _ -> true | _ -> false
     static member ``Unlocking frees a lock`` (GetLock gl) (LockId lockId) =
         let lock1 = gl defaultTimeOut lockId

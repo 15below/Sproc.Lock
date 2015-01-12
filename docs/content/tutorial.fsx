@@ -98,7 +98,7 @@ unavailable. Let's wait for it to become free instead.
 let WaitForNastyData () =
     use lock =
         fun () -> GetGlobalLock lserver (TimeSpan.FromMinutes 5.) "NastyAPI"
-        |> AwaitLock (TimeSpan.FromMinutes 5.) (TimeSpan.FromMilliseconds 100.)
+        |> AwaitLock (TimeSpan.FromMinutes 5.)
     match lock with
     | Locked l ->
         NastyAPI.DoOp()
@@ -116,8 +116,7 @@ let WaitForNastyData () =
         {
             using (var myLock = provider.AwaitGlobalLock("NastyAPI",
                 TimeSpan.FromMinutes(5.0), 
-                TimeSpan.FromMinutes(5.0),
-                TimeSpan.FromMilliseconds(100.0)))
+                TimeSpan.FromMinutes(5.0)))
             {
                 NastyAPI.DoOp();
             } // Lock released when Disposed
@@ -134,10 +133,13 @@ let WaitForNastyData () =
 
 
 This code is very similar to the code above, except that if the lock is not immediately
-available, it will check every 100 milliseconds for the next 5 minutes until it is.
+available, it will check every repeatedly for the next 5 minutes until it is.
 
 Only after the 5 minutes is up will it then report the lock unavailable; if it acquires
 it on any of the attempts inbetween it will call NastyAPI.
+
+How often does it poll? Initially very fast, backing off if the lock is not immediately
+available.
 
 If we have multiple ``NastyAPI`` accounts, we can also take advantage of that to make
 a number of concurrent requests limited to the number of available accounts.
@@ -201,7 +203,7 @@ let AwaitAnyNastyData () =
         fun () ->
             lockIds
             |> OneOfLocks (fun id -> GetGlobalLock lserver (TimeSpan.FromMinutes 5.) id)
-        |> AwaitLock (TimeSpan.FromMinutes 5.) (TimeSpan.FromMilliseconds 100.)
+        |> AwaitLock (TimeSpan.FromMinutes 5.)
     match lock with
     | Locked l ->
         // We know which lock we obtained here
@@ -221,8 +223,7 @@ let AwaitAnyNastyData () =
             using (var myLock = provider.AwaitOneOf(
                     id => provider.GlobalLock(id, TimeSpan.FromMinutes(5.0)),
                     lockIds,
-                    TimeSpan.FromMinutes(5.0),
-                    TimeSpan.FromMilliseconds(100.0)
+                    TimeSpan.FromMinutes(5.0)
                 ))
             {
                 NastyAPI.DoAccountOp(myLock.LockId);
@@ -325,7 +326,7 @@ let GetNastyLock accounts =
                         accounts.OrganisationName
                         accounts.Environment 
                         (TimeSpan.FromMinutes 5.) lid)
-        |> AwaitLock (TimeSpan.FromMinutes 2.) (TimeSpan.FromMilliseconds 100.)
+        |> AwaitLock (TimeSpan.FromMinutes 2.)
     match lock with
     | Locked lockId ->
         // All three "Nasty1" locks might be in use concurrently here;
@@ -374,8 +375,7 @@ let GetNastyLock accounts =
                     id, accounts.OrganisationName, 
                     accounts.Environment, TimeSpan.FromMinutes(5.0)),
                 accounts.AccountNames,
-                TimeSpan.FromMinutes(2.0),
-                TimeSpan.FromMinutes(100.0)))
+                TimeSpan.FromMinutes(2.0)))
             {
                 NastyAPI.DoAccountOp(myLock.LockId);
             }

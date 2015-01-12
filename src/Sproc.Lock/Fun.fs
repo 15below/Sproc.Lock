@@ -7,6 +7,23 @@ open System.Data.SqlClient
 open System.Security.Cryptography
 open System.Text
 
+let private intervals (timeOut : TimeSpan) =
+    let totalMs = timeOut.TotalMilliseconds
+    let rec inner polls total =
+        seq {
+            let x = float polls
+            let maxPoll = totalMs / 5.
+            let raise y = Math.Pow (y / 10., 4.)
+            let next =
+                (maxPoll * (raise x)) / (raise x + 1.) |> int
+            if next + total > (int totalMs) then
+                yield (int totalMs - total)
+            else
+                yield next
+                yield! inner (polls + 1) (total + next)
+        }
+    inner 2 0 |> Seq.toList
+
 let private AddP<'a> (command : SqlCommand) =
     fun name (value : 'a) ->
         command.Parameters.Add (new SqlParameter(name, value)) |> ignore
@@ -18,14 +35,14 @@ let private AddO<'a> (command : SqlCommand) =
 
 type Hashed = Hashed of string
 
-let (!!>) (str : string) =
+let private (!!>) (str : string) =
     use hash =
         SHA256.Create()
     Encoding.UTF8.GetBytes str
     |> hash.ComputeHash
     |> Convert.ToBase64String
 
-let (!!) = (!!>) >> Hashed
+let private (!!) = (!!>) >> Hashed
 
 /// Type representing a Lock that has definitely been acquired. Locks are
 /// IDisposable; disposing the lock will ensure it is released.
@@ -181,27 +198,25 @@ let GetEnvironmentLock connString organisation environment (maxDuration : TimeSp
 let DropLock (lock : Lock) =
     lock.Dispose()
 
-/// Poll the server waiting for a lock to become available. The method will block for no more than ``timeOut`` time, polling every ``interval``.
-let AwaitLock (timeOut : TimeSpan) (interval : TimeSpan) getLock =
-    let rec tryGet () =
+/// Poll the server waiting for a lock to become available. The method will block for no more than ``timeOut`` time.
+let AwaitLock (timeOut : TimeSpan) getLock =
+    let rec tryGet pollIntervals =
         async {
             let locked = getLock ()
             match locked with
             | Locked l ->
                 return Locked l
             | Unavailable ->
-                do! Async.Sleep (interval.TotalMilliseconds |> int)
-                return! tryGet ()
+                match pollIntervals with
+                | [] ->
+                    return Unavailable
+                | h::t ->
+                    do! Async.Sleep h
+                    return! tryGet t
             | Error i ->
                 return Error i            
         }
-    try
-        Async.RunSynchronously(tryGet(), timeOut.TotalMilliseconds |> int)
-    with
-    | :? TimeoutException ->
-        Unavailable
-    | e ->
-        raise e
+    Async.RunSynchronously(tryGet (intervals timeOut), timeOut.TotalMilliseconds |> int)
 
 let private shuffle xs =
     let rand = Random()

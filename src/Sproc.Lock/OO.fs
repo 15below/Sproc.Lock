@@ -42,15 +42,15 @@ type LockProvider (connString : string) =
     /// next requester.
     member x.EnvironmentLock (lockId, organisation, environment, maxDuration) =
         GetEnvironmentLock connString organisation environment maxDuration |> OOise lockId
-    /// As ``GlobalLock``, but polling every ``pollInterval`` or until ``timeOut`` until the lock is available
+    /// As ``GlobalLock``, but waiting until ``timeOut`` or the lock is available
     member x.AwaitGlobalLock (lockId, maxDuration, timeOut, pollInterval) =
-        (fun lockId -> AwaitLock timeOut pollInterval (fun () -> GetGlobalLock connString maxDuration lockId)) |> OOise lockId
-    /// As ``OrganisationLock``, but polling every ``pollInterval`` or until ``timeOut`` until the lock is available
+        (fun lockId -> AwaitLock timeOut (fun () -> GetGlobalLock connString maxDuration lockId)) |> OOise lockId
+    /// As ``OrganisationLock``, but waiting until ``timeOut`` or the lock is available
     member x.AwaitOrganisationLock (lockId, organisation, maxDuration, timeOut, pollInterval) =
-        (fun lockId -> AwaitLock timeOut pollInterval (fun () -> GetOrganisationLock connString organisation maxDuration lockId)) |> OOise lockId
-    /// As ``EnvironmentLock``, but polling every ``pollInterval`` or until ``timeOut`` until the lock is available
+        (fun lockId -> AwaitLock timeOut (fun () -> GetOrganisationLock connString organisation maxDuration lockId)) |> OOise lockId
+    /// As ``EnvironmentLock``, but waiting until ``timeOut`` or the lock is available
     member x.AwaitEnvironmentLock (lockId, organisation, environment, maxDuration, timeOut, pollInterval) =
-        (fun lockId -> AwaitLock timeOut pollInterval (fun () -> GetEnvironmentLock connString organisation environment maxDuration lockId)) |> OOise lockId
+        (fun lockId -> AwaitLock timeOut (fun () -> GetEnvironmentLock connString organisation environment maxDuration lockId)) |> OOise lockId
     /// Build a ``System.Func`` that returns a lock based on lockId and provide a list of lockIds.
     /// If any of the locks are available, it will pick one of the available locks at random.
     member x.OneOf<'t> (getLock : System.Func<'t, Lock>, lockIds) =
@@ -67,7 +67,7 @@ type LockProvider (connString : string) =
         | Error i -> raise <| LockRequestErrorException i
     /// Build a ``System.Func`` that returns a lock based on lockId and provide a list of lockIds.
     /// If any of the locks are available, it will pick one of the available locks at random.
-    /// If none are available, it will poll every ``pollInterval`` until one is, or ``timeOut`` has passed.
+    /// If none are available it will wait until one is, or ``timeOut`` has passed.
     member x.AwaitOneOf<'t> (getLock : System.Func<'t, Lock>, lockIds, timeOut, pollInterval) =
         let getLock' =
             fun t ->
@@ -76,7 +76,7 @@ type LockProvider (connString : string) =
                 with
                 | :? LockUnavailableException -> Unavailable
                 | :? LockRequestErrorException as e -> Error (e.Data.["ErrorCode"] :?> int)
-        match AwaitLock timeOut pollInterval (fun () -> OneOfLocks getLock' lockIds) with
+        match AwaitLock timeOut (fun () -> OneOfLocks getLock' lockIds) with
         | Locked l -> l
         | Unavailable -> raise <| LockUnavailableException(sprintf "None of the locks %A were available." lockIds)
         | Error i -> raise <| LockRequestErrorException i

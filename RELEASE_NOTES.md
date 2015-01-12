@@ -1,3 +1,7 @@
+### 1.0.0-beta1 - Adaptive polling
+* Remove polling interval parameter from Await methods
+* Make Await polling "adaptive" (rapid initially, throttling back if lock unavailable)
+
 ### 1.0.0-alpha1 - Ready for testing version
 * Expanded FsCheck properties for generated organisation/environment names
 * Pre-hashing of sproc arguments to allow arbitrary length arguments
