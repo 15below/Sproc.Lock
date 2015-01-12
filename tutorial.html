@@ -54,7 +54,7 @@ the credentials of the user running the build scripts; setting an environment va
 called <code>LockConnString</code> with an alternative connection string will override this and
 both deploy and test Sproc.Lock on the server of your choice.</p>
 
-<p>Use a server is deployed, using the library is easy. Let's assume that we have a third
+<p>Once a server is deployed, using the library is easy. Let's assume that we have a third
 party service called <code>NastyAPI</code> which we only have one account for.</p>
 
 <p>We'd like to write a service that only calls NastyAPI if no one else is, to avoid punitive
@@ -199,7 +199,7 @@ unavailable. Let's wait for it to become free instead.</p>
 }</pre></td></tr></table>
 
 <p>This code is very similar to the code above, except that if the lock is not immediately
-available, it will check every repeatedly for the next 5 minutes until it is.</p>
+available, it will check repeatedly for the next 5 minutes until it is.</p>
 
 <p>Only after the 5 minutes is up will it then report the lock unavailable; if it acquires
 it on any of the attempts inbetween it will call NastyAPI.</p>
