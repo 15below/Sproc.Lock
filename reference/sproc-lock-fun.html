@@ -94,69 +94,33 @@ IDisposable; disposing the lock will ensure it is released.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '1', 1)" onmouseover="showTip(event, '1', 1)">
-            ( !! ) 
+            AwaitLock timeOut getLock
           </code>
           <div class="tip" id="1">
-            <strong>Signature:</strong> string -&gt; Hashed<br />
+            <strong>Signature:</strong> timeOut:TimeSpan -&gt; getLock:(unit -&gt; LockResult) -&gt; LockResult<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L28-28" class="github-link">
+            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L202-202" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Poll the server waiting for a lock to become available. The method will block for no more than <code>timeOut</code> time.</p>
+
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '2', 2)" onmouseover="showTip(event, '2', 2)">
-            ( !!&gt; ) str
-          </code>
-          <div class="tip" id="2">
-            <strong>Signature:</strong> str:string -&gt; string<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L21-21" class="github-link">
-              <img src="../content/img/github.png" class="normal" />
-              <img src="../content/img/github-blue.png" class="hover" />
-            </a>
-          
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '3', 3)" onmouseover="showTip(event, '3', 3)">
-            AwaitLock timeOut interval getLock
-          </code>
-          <div class="tip" id="3">
-            <strong>Signature:</strong> timeOut:TimeSpan -&gt; interval:TimeSpan -&gt; getLock:(unit -&gt; LockResult) -&gt; LockResult<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L185-185" class="github-link">
-              <img src="../content/img/github.png" class="normal" />
-              <img src="../content/img/github-blue.png" class="hover" />
-            </a>
-          <p>Poll the server waiting for a lock to become available. The method will block for no more than <code>timeOut</code> time, polling every <code>interval</code>.</p>
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '4', 4)" onmouseover="showTip(event, '4', 4)">
             DropLock lock
           </code>
-          <div class="tip" id="4">
+          <div class="tip" id="2">
             <strong>Signature:</strong> lock:Lock -&gt; unit<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L181-181" class="github-link">
+            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L198-198" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -167,15 +131,15 @@ IDisposable; disposing the lock will ensure it is released.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '5', 5)" onmouseover="showTip(event, '5', 5)">
+          <code onmouseout="hideTip(event, '3', 3)" onmouseover="showTip(event, '3', 3)">
             GetEnvironmentLock (...)
           </code>
-          <div class="tip" id="5">
+          <div class="tip" id="3">
             <strong>Signature:</strong> connString:string -&gt; organisation:string -&gt; environment:string -&gt; maxDuration:TimeSpan -&gt; lockIdentifier:string -&gt; LockResult<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L156-156" class="github-link">
+            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L173-173" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -189,15 +153,15 @@ next requester.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '6', 6)" onmouseover="showTip(event, '6', 6)">
+          <code onmouseout="hideTip(event, '4', 4)" onmouseover="showTip(event, '4', 4)">
             GetGlobalLock (...)
           </code>
-          <div class="tip" id="6">
+          <div class="tip" id="4">
             <strong>Signature:</strong> connString:string -&gt; maxDuration:TimeSpan -&gt; lockIdentifier:string -&gt; LockResult<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L106-106" class="github-link">
+            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L123-123" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -211,15 +175,15 @@ next requester.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '7', 7)" onmouseover="showTip(event, '7', 7)">
+          <code onmouseout="hideTip(event, '5', 5)" onmouseover="showTip(event, '5', 5)">
             GetOrganisationLock (...)
           </code>
-          <div class="tip" id="7">
+          <div class="tip" id="5">
             <strong>Signature:</strong> connString:string -&gt; organisation:string -&gt; maxDuration:TimeSpan -&gt; lockIdentifier:string -&gt; LockResult<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L130-130" class="github-link">
+            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L147-147" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -233,15 +197,15 @@ next requester.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '8', 8)" onmouseover="showTip(event, '8', 8)">
+          <code onmouseout="hideTip(event, '6', 6)" onmouseover="showTip(event, '6', 6)">
             OneOfLocks getLock lockIds
           </code>
-          <div class="tip" id="8">
-            <strong>Signature:</strong> getLock:(&#39;?6160 -&gt; LockResult) -&gt; lockIds:seq&lt;&#39;?6160&gt; -&gt; LockResult<br />
-                          <strong>Type parameters:</strong> '?6160          </div>
+          <div class="tip" id="6">
+            <strong>Signature:</strong> getLock:(&#39;?6167 -&gt; LockResult) -&gt; lockIds:seq&lt;&#39;?6167&gt; -&gt; LockResult<br />
+                          <strong>Type parameters:</strong> '?6167          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L219-219" class="github-link">
+            <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/Fun.fs#L234-234" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>

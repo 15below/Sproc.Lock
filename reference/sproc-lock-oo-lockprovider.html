@@ -58,10 +58,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '19', 19)" onmouseover="showTip(event, '19', 19)">
+          <code onmouseout="hideTip(event, '17', 17)" onmouseover="showTip(event, '17', 17)">
             new(connString)
           </code>
-          <div class="tip" id="19">
+          <div class="tip" id="17">
             <strong>Signature:</strong> connString:string -&gt; LockProvider<br />
                       </div>
         </td>
@@ -84,49 +84,49 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '20', 20)" onmouseover="showTip(event, '20', 20)">
+          <code onmouseout="hideTip(event, '18', 18)" onmouseover="showTip(event, '18', 18)">
             AwaitEnvironmentLock(...)
           </code>
-          <div class="tip" id="20">
-            <strong>Signature:</strong> (lockId:string * organisation:string * environment:string * maxDuration:TimeSpan * timeOut:TimeSpan * pollInterval:TimeSpan) -&gt; Lock<br />
-                      </div>
+          <div class="tip" id="18">
+            <strong>Signature:</strong> (lockId:string * organisation:string * environment:string * maxDuration:TimeSpan * timeOut:TimeSpan * pollInterval:&#39;?6102) -&gt; Lock<br />
+                          <strong>Type parameters:</strong> '?6102          </div>
         </td>
         <td class="xmldoc">
             <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/OO.fs#L52-52" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>As <code>EnvironmentLock</code>, but polling every <code>pollInterval</code> or until <code>timeOut</code> until the lock is available</p>
+          <p>As <code>EnvironmentLock</code>, but waiting until <code>timeOut</code> or the lock is available</p>
 
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '21', 21)" onmouseover="showTip(event, '21', 21)">
+          <code onmouseout="hideTip(event, '19', 19)" onmouseover="showTip(event, '19', 19)">
             AwaitGlobalLock(...)
           </code>
-          <div class="tip" id="21">
-            <strong>Signature:</strong> (lockId:string * maxDuration:TimeSpan * timeOut:TimeSpan * pollInterval:TimeSpan) -&gt; Lock<br />
-                      </div>
+          <div class="tip" id="19">
+            <strong>Signature:</strong> (lockId:string * maxDuration:TimeSpan * timeOut:TimeSpan * pollInterval:&#39;?6098) -&gt; Lock<br />
+                          <strong>Type parameters:</strong> '?6098          </div>
         </td>
         <td class="xmldoc">
             <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/OO.fs#L46-46" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>As <code>GlobalLock</code>, but polling every <code>pollInterval</code> or until <code>timeOut</code> until the lock is available</p>
+          <p>As <code>GlobalLock</code>, but waiting until <code>timeOut</code> or the lock is available</p>
 
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '22', 22)" onmouseover="showTip(event, '22', 22)">
+          <code onmouseout="hideTip(event, '20', 20)" onmouseover="showTip(event, '20', 20)">
             AwaitOneOf(...)
           </code>
-          <div class="tip" id="22">
-            <strong>Signature:</strong> (getLock:Func&lt;&#39;t,Lock&gt; * lockIds:seq&lt;&#39;t&gt; * timeOut:TimeSpan * pollInterval:TimeSpan) -&gt; Lock<br />
+          <div class="tip" id="20">
+            <strong>Signature:</strong> (getLock:Func&lt;&#39;t,Lock&gt; * lockIds:seq&lt;&#39;t&gt; * timeOut:TimeSpan * pollInterval:obj) -&gt; Lock<br />
                           <strong>Type parameters:</strong> 't          </div>
         </td>
         <td class="xmldoc">
@@ -136,36 +136,36 @@
             </a>
           <p>Build a <code>System.Func</code> that returns a lock based on lockId and provide a list of lockIds.
 If any of the locks are available, it will pick one of the available locks at random.
-If none are available, it will poll every <code>pollInterval</code> until one is, or <code>timeOut</code> has passed.</p>
+If none are available it will wait until one is, or <code>timeOut</code> has passed.</p>
 
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '23', 23)" onmouseover="showTip(event, '23', 23)">
+          <code onmouseout="hideTip(event, '21', 21)" onmouseover="showTip(event, '21', 21)">
             AwaitOrganisationLock(...)
           </code>
-          <div class="tip" id="23">
-            <strong>Signature:</strong> (lockId:string * organisation:string * maxDuration:TimeSpan * timeOut:TimeSpan * pollInterval:TimeSpan) -&gt; Lock<br />
-                      </div>
+          <div class="tip" id="21">
+            <strong>Signature:</strong> (lockId:string * organisation:string * maxDuration:TimeSpan * timeOut:TimeSpan * pollInterval:&#39;?6100) -&gt; Lock<br />
+                          <strong>Type parameters:</strong> '?6100          </div>
         </td>
         <td class="xmldoc">
             <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/OO.fs#L49-49" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>As <code>OrganisationLock</code>, but polling every <code>pollInterval</code> or until <code>timeOut</code> until the lock is available</p>
+          <p>As <code>OrganisationLock</code>, but waiting until <code>timeOut</code> or the lock is available</p>
 
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '24', 24)" onmouseover="showTip(event, '24', 24)">
+          <code onmouseout="hideTip(event, '22', 22)" onmouseover="showTip(event, '22', 22)">
             EnvironmentLock(...)
           </code>
-          <div class="tip" id="24">
+          <div class="tip" id="22">
             <strong>Signature:</strong> (lockId:string * organisation:string * environment:string * maxDuration:TimeSpan) -&gt; Lock<br />
                       </div>
         </td>
@@ -184,10 +184,10 @@ next requester.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '25', 25)" onmouseover="showTip(event, '25', 25)">
+          <code onmouseout="hideTip(event, '23', 23)" onmouseover="showTip(event, '23', 23)">
             GlobalLock(lockId, maxDuration)
           </code>
-          <div class="tip" id="25">
+          <div class="tip" id="23">
             <strong>Signature:</strong> (lockId:string * maxDuration:TimeSpan) -&gt; Lock<br />
                       </div>
         </td>
@@ -206,10 +206,10 @@ next requester.</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '26', 26)" onmouseover="showTip(event, '26', 26)">
+          <code onmouseout="hideTip(event, '24', 24)" onmouseover="showTip(event, '24', 24)">
             OneOf(getLock, lockIds)
           </code>
-          <div class="tip" id="26">
+          <div class="tip" id="24">
             <strong>Signature:</strong> (getLock:Func&lt;&#39;t,Lock&gt; * lockIds:seq&lt;&#39;t&gt;) -&gt; Lock<br />
                           <strong>Type parameters:</strong> 't          </div>
         </td>
@@ -226,10 +226,10 @@ If any of the locks are available, it will pick one of the available locks at ra
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '27', 27)" onmouseover="showTip(event, '27', 27)">
+          <code onmouseout="hideTip(event, '25', 25)" onmouseover="showTip(event, '25', 25)">
             OrganisationLock(...)
           </code>
-          <div class="tip" id="27">
+          <div class="tip" id="25">
             <strong>Signature:</strong> (lockId:string * organisation:string * maxDuration:TimeSpan) -&gt; Lock<br />
                       </div>
         </td>
