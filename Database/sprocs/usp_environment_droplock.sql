@@ -15,9 +15,9 @@ PRINT 'Creating Procedure usp_environment_droplock'
 GO
 
 CREATE Procedure usp_environment_droplock
-	@lockId nvarchar(44),
-	@organisation nvarchar(44),
-	@environment nvarchar(44),
+	@lockId char(44),
+	@organisation char(44),
+	@environment char(44),
 	@instance uniqueidentifier
 AS
 

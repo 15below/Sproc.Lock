@@ -130,6 +130,7 @@ let GetGlobalLock connString (maxDuration : TimeSpan) lockIdentifier =
         getDbLock.CommandType <- CommandType.StoredProcedure
         getDbLock.CommandText <- "usp_global_createlock"
         AddP getDbLock "lockId" hId
+        AddP getDbLock "description" lockIdentifier
         AddP getDbLock "stale" (maxDuration.TotalMilliseconds)
         let instanceParameter = AddO getDbLock "instance" SqlDbType.UniqueIdentifier
         let result = getDbLock.ExecuteScalar() :?> int
@@ -156,6 +157,7 @@ let GetOrganisationLock connString organisation (maxDuration : TimeSpan) lockIde
         getDbLock.CommandText <- "usp_organisation_createlock"
         AddP getDbLock "lockId" hId
         AddP getDbLock "organisation" hOrg
+        AddP getDbLock "description" (String.concat "::" [organisation;lockIdentifier])
         AddP getDbLock "stale" (maxDuration.TotalMilliseconds)
         let instanceParameter = AddO getDbLock "instance" SqlDbType.UniqueIdentifier
         let result = getDbLock.ExecuteScalar() :?> int
@@ -184,6 +186,7 @@ let GetEnvironmentLock connString organisation environment (maxDuration : TimeSp
         AddP getDbLock "lockId" hId
         AddP getDbLock "organisation" hOrg
         AddP getDbLock "environment" hEnv
+        AddP getDbLock "description" (String.concat "::" [environment;organisation;lockIdentifier])
         AddP getDbLock "stale" (maxDuration.TotalMilliseconds)
         let instanceParameter = AddO getDbLock "instance" SqlDbType.UniqueIdentifier
         let result = getDbLock.ExecuteScalar() :?> int

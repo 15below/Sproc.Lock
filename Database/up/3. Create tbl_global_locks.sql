@@ -5,7 +5,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[tbl_global_locks](
-	[LockId] [nvarchar](44) NOT NULL,
+	[LockId] [char](44) NOT NULL,
+	[Description] [nvarchar](4000) NOT NULL,
 	[Stale] [datetime] NOT NULL,
 	[InstanceId] [uniqueidentifier] NOT NULL
 ) ON [PRIMARY]

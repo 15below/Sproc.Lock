@@ -15,8 +15,9 @@ PRINT 'Creating Procedure usp_organisation_createlock'
 GO
 
 CREATE Procedure usp_organisation_createlock
-	@lockId nvarchar(44),
-	@organisation nvarchar(44),
+	@lockId char(44),
+	@organisation char(44),
+	@description nvarchar(4000),
 	@stale int,	
 	@instance uniqueidentifier OUT
 AS
@@ -57,7 +58,7 @@ IF @RC >= 0 BEGIN
 	BEGIN
 		DELETE FROM dbo.tbl_organisation_locks WHERE LockId = @lockId AND Organisation = @organisation
 		SET @instance = NEWID()
-		INSERT INTO dbo.tbl_organisation_locks VALUES (@lockId, @organisation, DATEADD(ms, @stale, SYSUTCDATETIME()), @instance)
+		INSERT INTO dbo.tbl_organisation_locks VALUES (@lockId, @organisation, @description, DATEADD(ms, @stale, SYSUTCDATETIME()), @instance)
 	END
 END
 SELECT @RC

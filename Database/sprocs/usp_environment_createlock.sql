@@ -15,9 +15,10 @@ PRINT 'Creating Procedure usp_environment_createlock'
 GO
 
 CREATE Procedure usp_environment_createlock
-	@lockId nvarchar(44),
-	@organisation nvarchar(44),
-	@environment nvarchar(44),
+	@lockId char(44),
+	@organisation char(44),
+	@environment char(44),
+	@description nvarchar(4000),
 	@stale int,	
 	@instance uniqueidentifier OUT
 AS
@@ -60,7 +61,7 @@ IF @RC >= 0 BEGIN
 		DELETE FROM dbo.tbl_environment_locks 
 		WHERE LockId = @lockId AND Organisation = @organisation AND environment = @environment
 		SET @instance = NEWID()
-		INSERT INTO dbo.tbl_environment_locks VALUES (@lockId, @organisation, @environment, DATEADD(ms, @stale, SYSUTCDATETIME()), @instance)
+		INSERT INTO dbo.tbl_environment_locks VALUES (@lockId, @organisation, @environment, @description, DATEADD(ms, @stale, SYSUTCDATETIME()), @instance)
 	END
 END
 SELECT @RC

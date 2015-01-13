@@ -15,7 +15,7 @@ PRINT 'Creating Procedure usp_global_droplock'
 GO
 
 CREATE Procedure usp_global_droplock
-	@lockId nvarchar(44),
+	@lockId char(44),
 	@instance uniqueidentifier
 AS
 

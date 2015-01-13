@@ -15,7 +15,8 @@ PRINT 'Creating Procedure usp_global_createlock'
 GO
 
 CREATE Procedure usp_global_createlock
-	@lockId nvarchar(44),
+	@lockId char(44),
+	@description nvarchar(4000),
 	@stale int,	
 	@instance uniqueidentifier OUT
 AS
@@ -54,7 +55,7 @@ IF @RC >= 0 BEGIN
 	BEGIN
 		DELETE FROM dbo.tbl_global_locks WHERE LockId = @lockId
 		SET @instance = NEWID()
-		INSERT INTO dbo.tbl_global_locks VALUES (@lockId, DATEADD(ms, @stale, SYSUTCDATETIME()), @instance)
+		INSERT INTO dbo.tbl_global_locks VALUES (@lockId, @description, DATEADD(ms, @stale, SYSUTCDATETIME()), @instance)
 	END
 END
 SELECT @RC
