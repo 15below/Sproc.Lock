@@ -1,5 +1,6 @@
 ### 1.0.0-beta3 - Adding description
 * Hashed values are indexed in lock tables, but a human readable description is also added for debugging.
+* Database re-baselined
 
 ### 1.0.0-beta2 - Updated docs
 * Proof read, css fixes
