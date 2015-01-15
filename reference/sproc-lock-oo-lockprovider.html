@@ -25,7 +25,7 @@
     <header>
         <div class="container">
             <a href="http://15below.github.io/Sproc.Lock/index.html" class="sproc-lock-logo"></a>
-            <div class="header-block span8 pull-right">
+            <div class="header-block pull-right">
                 <div class="row no-margin">
                     <div class="logo-15below">15below</div>
                 </div>
@@ -40,7 +40,24 @@
     </header>
     <div class="container">
       <div class="row">
-        <div class="span9" id="main">
+        <div id="sidebar" class="dropdown">
+          <ul class="nav nav-list" id="menu">
+            <li class="nav-header">Sproc.Lock</li>
+            <li><a href="/Sproc.Lock/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/Sproc.Lock">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/15below/Sproc.Lock">Source Code on GitHub</a></li>
+            <li><a href="/Sproc.Lock/license.html">License</a></li>
+            <li><a href="/Sproc.Lock/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/Sproc.Lock/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/Sproc.Lock/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+        <div class="" id="main">
           
 
 
@@ -88,8 +105,8 @@
             AwaitEnvironmentLock(...)
           </code>
           <div class="tip" id="18">
-            <strong>Signature:</strong> (lockId:string * organisation:string * environment:string * maxDuration:TimeSpan * timeOut:TimeSpan * pollInterval:&#39;?6102) -&gt; Lock<br />
-                          <strong>Type parameters:</strong> '?6102          </div>
+            <strong>Signature:</strong> (lockId:string * organisation:string * environment:string * maxDuration:TimeSpan * timeOut:TimeSpan) -&gt; Lock<br />
+                      </div>
         </td>
         <td class="xmldoc">
             <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/OO.fs#L52-52" class="github-link">
@@ -107,8 +124,8 @@
             AwaitGlobalLock(...)
           </code>
           <div class="tip" id="19">
-            <strong>Signature:</strong> (lockId:string * maxDuration:TimeSpan * timeOut:TimeSpan * pollInterval:&#39;?6098) -&gt; Lock<br />
-                          <strong>Type parameters:</strong> '?6098          </div>
+            <strong>Signature:</strong> (lockId:string * maxDuration:TimeSpan * timeOut:TimeSpan) -&gt; Lock<br />
+                      </div>
         </td>
         <td class="xmldoc">
             <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/OO.fs#L46-46" class="github-link">
@@ -123,10 +140,10 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '20', 20)" onmouseover="showTip(event, '20', 20)">
-            AwaitOneOf(...)
+            AwaitOneOf(getLock, lockIds, timeOut)
           </code>
           <div class="tip" id="20">
-            <strong>Signature:</strong> (getLock:Func&lt;&#39;t,Lock&gt; * lockIds:seq&lt;&#39;t&gt; * timeOut:TimeSpan * pollInterval:obj) -&gt; Lock<br />
+            <strong>Signature:</strong> (getLock:Func&lt;&#39;t,Lock&gt; * lockIds:seq&lt;&#39;t&gt; * timeOut:TimeSpan) -&gt; Lock<br />
                           <strong>Type parameters:</strong> 't          </div>
         </td>
         <td class="xmldoc">
@@ -147,8 +164,8 @@ If none are available it will wait until one is, or <code>timeOut</code> has pas
             AwaitOrganisationLock(...)
           </code>
           <div class="tip" id="21">
-            <strong>Signature:</strong> (lockId:string * organisation:string * maxDuration:TimeSpan * timeOut:TimeSpan * pollInterval:&#39;?6100) -&gt; Lock<br />
-                          <strong>Type parameters:</strong> '?6100          </div>
+            <strong>Signature:</strong> (lockId:string * organisation:string * maxDuration:TimeSpan * timeOut:TimeSpan) -&gt; Lock<br />
+                      </div>
         </td>
         <td class="xmldoc">
             <a href="http://github.com/15below/Sproc.Lock/tree/master/src/Sproc.Lock/OO.fs#L49-49" class="github-link">
@@ -249,23 +266,7 @@ next requester.</p>
   </table>
 
         </div>
-        <div id="sidebar" class="span3">
-          <ul class="nav nav-list" id="menu">
-            <li class="nav-header">Sproc.Lock</li>
-            <li><a href="/Sproc.Lock/index.html">Home page</a></li>
-            <li class="divider"></li>
-            <li><a href="http://nuget.org/packages/Sproc.Lock">Get Library via NuGet</a></li>
-            <li><a href="http://github.com/15below/Sproc.Lock">Source Code on GitHub</a></li>
-            <li><a href="/Sproc.Lock/license.html">License</a></li>
-            <li><a href="/Sproc.Lock/release-notes.html">Release Notes</a></li>
-            
-            <li class="nav-header">Getting started</li>
-            <li><a href="/Sproc.Lock/tutorial.html">Sample tutorial</a></li>
-
-            <li class="nav-header">Documentation</li>
-            <li><a href="/Sproc.Lock/reference/index.html">API Reference</a></li>
-          </ul>
-        </div>
+        
       </div>
     </div>
     <a href="http://github.com/15below/Sproc.Lock"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>

@@ -2,16 +2,22 @@
 html, body { height: 100%; }
 
 /* line 5, ../scss/core.scss */
-body { font-size: 16px; font-family: helvetica, arial, sans-serif; }
+body { font-size: 1em; font-family: helvetica, arial, sans-serif; }
 
 /* line 9, ../scss/core.scss */
-a:active, a:focus { outline: 0; }
+.row { margin: 0 !important; }
 
 /* line 13, ../scss/core.scss */
+a:active, a:focus { outline: 0; }
+
+/* line 17, ../scss/core.scss */
 .no-padding { padding: none; }
 
-/* line 16, ../scss/core.scss */
+/* line 20, ../scss/core.scss */
 .no-margin { margin: none; }
+
+/* line 23, ../scss/core.scss */
+.container { width: auto; margin: 0 auto 0 auto; padding: 0 30px 0 30px; max-width: 1170px; }
 
 /* line 1, ../scss/header.scss */
 header { display: block; height: 100px; width: 100%; background: #426174 url(../img/header-infographic.gif) top center no-repeat; margin-bottom: 30px; }
@@ -31,46 +37,50 @@ header ul.nav li:last-child a { border: 0; padding-right: 0; }
 header .logo-15below { display: block; float: right; width: 121px; height: 36px; background: transparent url("../img/logo-15below.png") top right no-repeat; color: transparent; margin: 20px 0 0 0; }
 
 /* line 2, ../scss/mainArea.scss */
-#main { float: left; font-family: helvetica, arial, sans-serif; line-height: 24px; font-weight: normal; }
-/* line 7, ../scss/mainArea.scss */
+#main { float: left; font-family: helvetica, arial, sans-serif; line-height: 1.5em; font-weight: normal; width: 73.0%; margin-left: 30px; padding-bottom: 60px; }
+/* line 11, ../scss/mainArea.scss */
 #main p { color: #888888; }
-/* line 10, ../scss/mainArea.scss */
+/* line 14, ../scss/mainArea.scss */
 #main a { color: #333333; }
-/* line 13, ../scss/mainArea.scss */
+/* line 17, ../scss/mainArea.scss */
 #main a:hover { color: #000000; }
-/* line 16, ../scss/mainArea.scss */
+/* line 20, ../scss/mainArea.scss */
 #main h1, #main h2, #main h3, #main h4 { color: #1e1e1e; }
-/* line 19, ../scss/mainArea.scss */
-#main h1 { font-size: 30px; margin: 10px 0px 20px; }
 /* line 23, ../scss/mainArea.scss */
+#main h1 { font-size: 2em; margin: 10px 0px 20px; }
+/* line 27, ../scss/mainArea.scss */
 #main h1:first-child { margin-top: 0; }
-/* line 26, ../scss/mainArea.scss */
-#main h2 { font-size: 21px; margin: 25px 0px 10px; }
 /* line 30, ../scss/mainArea.scss */
-#main h3 { font-size: 16px; margin: 25px 0px 0px; }
+#main h2 { font-size: 1.3em; margin: 25px 0px 10px; }
 /* line 34, ../scss/mainArea.scss */
-#main h4 { font-size: 16px; margin: 15px 0 5px 0; color: #6f6f6f; }
-/* line 40, ../scss/mainArea.scss */
+#main h3 { font-size: 1em; margin: 25px 0px 0px; }
+/* line 38, ../scss/mainArea.scss */
+#main h4 { font-size: 1em; margin: 15px 0 5px 0; color: #6f6f6f; }
+/* line 44, ../scss/mainArea.scss */
 #main ul li, #main ol li { color: #888888; }
-/* line 46, ../scss/mainArea.scss */
+/* line 50, ../scss/mainArea.scss */
 #main table thead tr:first-child td, #main table thead tr th { font-weight: bold; }
 
 /* line 1, ../scss/sidebar.scss */
-#sidebar { background-color: #eeeeee; }
-/* line 3, ../scss/sidebar.scss */
-#sidebar ul { margin-top: 0; }
-/* line 7, ../scss/sidebar.scss */
-#sidebar ul li a, #sidebar ul li a:focus { color: #666666; }
-/* line 11, ../scss/sidebar.scss */
-#sidebar ul li a:hover, #sidebar ul li a:active { color: #111111; }
-/* line 16, ../scss/sidebar.scss */
-#sidebar ul li.nav-header { color: #e00034; font-size: 21px; margin: 25px -16px 0px -21px; padding: 15px 15px 10px 21px; font-family: helvetica, arial, sans-serif; border-top: 3px solid white; text-transform: none; }
+#sidebar.dropdown { float: right; background-color: #eeeeee; width: 23.5%; }
+/* line 5, ../scss/sidebar.scss */
+#sidebar.dropdown ul#menu.nav.nav-list.dropdown-menu { margin-top: 0; display: block; z-index: auto; position: relative; background-color: transparent; border: none; border-radius: 0; box-shadow: none; margin: 0; width: 100%; }
+/* line 17, ../scss/sidebar.scss */
+#sidebar.dropdown ul#menu.nav.nav-list.dropdown-menu li { margin: 0; width: 100%; box-sizing: border-box; }
+/* line 22, ../scss/sidebar.scss */
+#sidebar.dropdown ul#menu.nav.nav-list.dropdown-menu li a:focus { color: #666666; }
 /* line 25, ../scss/sidebar.scss */
-#sidebar ul li.nav-header:first-child { border-top: none; margin-top: 0; }
-/* line 29, ../scss/sidebar.scss */
-#sidebar ul li.divider { background-color: transparent; border-bottom: 1px dotted #aaaaaa; }
-/* line 33, ../scss/sidebar.scss */
-#sidebar ul li:last-child { padding-bottom: 15px; }
+#sidebar.dropdown ul#menu.nav.nav-list.dropdown-menu li a, #sidebar.dropdown ul#menu.nav.nav-list.dropdown-menu li li.nav-header { padding: 5px 15px 5px 15px; margin: 0; }
+/* line 30, ../scss/sidebar.scss */
+#sidebar.dropdown ul#menu.nav.nav-list.dropdown-menu li a:hover, #sidebar.dropdown ul#menu.nav.nav-list.dropdown-menu li a:active { color: #111111; background-image: none; background-color: #d1d1d1; }
+/* line 38, ../scss/sidebar.scss */
+#sidebar.dropdown ul#menu.nav.nav-list.dropdown-menu li.nav-header { color: #e00034; font-size: 21px; margin: 25px 0 0px 0; padding: 15px 15px 10px 15px; font-family: helvetica, arial, sans-serif; border-top: 3px solid white; text-transform: none; }
+/* line 47, ../scss/sidebar.scss */
+#sidebar.dropdown ul#menu.nav.nav-list.dropdown-menu li.nav-header:first-child { border-top: none; margin-top: 0; }
+/* line 51, ../scss/sidebar.scss */
+#sidebar.dropdown ul#menu.nav.nav-list.dropdown-menu li.divider { background-color: transparent; border-bottom: 1px dotted #aaaaaa; padding-top: 15px; margin: 0 15px 15px 15px; width: auto; display: block; }
+/* line 59, ../scss/sidebar.scss */
+#sidebar.dropdown ul#menu.nav.nav-list.dropdown-menu li:last-child { padding-bottom: 15px; }
 
 /*--------------------------------------------------------------------------  Formatting for F# code snippets 
 /*--------------------------------------------------------------------------*/
@@ -176,3 +186,30 @@ table.pre td.lines { width: 30px; }
 
 /* line 118, ../scss/codeSnippets.scss */
 #nuget pre { font-size: 11pt; -moz-border-radius: 0px; -webkit-border-radius: 0px; border-radius: 0px; background: #404040; border-style: none; color: #e0e0e0; margin-top: 15px; }
+
+@media (max-width: 979px) { /* line 2, ../scss/responsive.scss */
+  body { padding: 0; }
+  /* line 5, ../scss/responsive.scss */
+  header { margin-bottom: 0; }
+  /* line 7, ../scss/responsive.scss */
+  header .header-block { width: calc(100% - 300px); display: inline-block; }
+  /* line 13, ../scss/responsive.scss */
+  #sidebar.dropdown { display: block; float: none; width: auto; position: absolute; left: 0; Right: 0; height: 50px; overflow: hidden; z-index: 200; -webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5); -moz-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5); box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5); }
+  /* line 27, ../scss/responsive.scss */
+  #sidebar.dropdown button.dropdown-toggle { display: inline-block; margin: 10px 30px 10px 30px; background-color: #666; border: none; border-radius: 4px; color: #eee; font-size: 1em; padding: 5px 10px; }
+  /* line 37, ../scss/responsive.scss */
+  #sidebar.dropdown button:hover.dropdown-toggle, #sidebar.dropdown button:active.dropdown-toggle, #sidebar.dropdown button:focus.dropdown-toggle { color: white; background-color: #333; outline: 0; }
+  /* line 45, ../scss/responsive.scss */
+  #sidebar.dropdown.open { height: auto; }
+  /* line 49, ../scss/responsive.scss */
+  #sidebar.dropdown.open ul.dropdown-menu li:first-child { border-top: 1px solid #ccc; }
+  /* line 53, ../scss/responsive.scss */
+  #sidebar.dropdown.open ul.dropdown-menu li a { padding: 5px 30px !important; }
+  /* line 57, ../scss/responsive.scss */
+  #sidebar.dropdown.open ul.dropdown-menu li.nav-header { padding-left: 28px !important; padding-right: 28px !important; }
+  /* line 64, ../scss/responsive.scss */
+  #main { position: relative; float: none; width: 100%; margin-top: 60px; margin-left: 0; } }
+@media (min-width: 980px) { /* line 75, ../scss/responsive.scss */
+  #sidebar button.dropdown-toggle { display: none; } }
+@media (max-width: 1460px) { /* line 81, ../scss/responsive.scss */
+  body > a > img { display: none !important; } }
