@@ -203,7 +203,7 @@ let DropLock (lock : Lock) =
 
 /// Poll the server waiting for a lock to become available. The method will block for no more than ``timeOut`` time.
 let AwaitLock (timeOut : TimeSpan) getLock =
-    let rec tryGet pollIntervals =
+    let rec tryGet maxTime pollIntervals =
         async {
             let locked = getLock ()
             match locked with
@@ -214,12 +214,15 @@ let AwaitLock (timeOut : TimeSpan) getLock =
                 | [] ->
                     return Unavailable
                 | h::t ->
-                    do! Async.Sleep h
-                    return! tryGet t
+                    if maxTime < DateTime.Now then
+                        return Unavailable
+                    else
+                        do! Async.Sleep h
+                        return! tryGet maxTime t
             | Error i ->
                 return Error i            
         }
-    Async.RunSynchronously(tryGet (intervals timeOut), timeOut.TotalMilliseconds |> int)
+    Async.RunSynchronously(tryGet (DateTime.Now + timeOut) (intervals timeOut))
 
 let private shuffle xs =
     let rand = Random()

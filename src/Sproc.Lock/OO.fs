@@ -43,13 +43,13 @@ type LockProvider (connString : string) =
     member x.EnvironmentLock (lockId, organisation, environment, maxDuration) =
         GetEnvironmentLock connString organisation environment maxDuration |> OOise lockId
     /// As ``GlobalLock``, but waiting until ``timeOut`` or the lock is available
-    member x.AwaitGlobalLock (lockId, maxDuration, timeOut, pollInterval) =
+    member x.AwaitGlobalLock (lockId, maxDuration, timeOut) =
         (fun lockId -> AwaitLock timeOut (fun () -> GetGlobalLock connString maxDuration lockId)) |> OOise lockId
     /// As ``OrganisationLock``, but waiting until ``timeOut`` or the lock is available
-    member x.AwaitOrganisationLock (lockId, organisation, maxDuration, timeOut, pollInterval) =
+    member x.AwaitOrganisationLock (lockId, organisation, maxDuration, timeOut) =
         (fun lockId -> AwaitLock timeOut (fun () -> GetOrganisationLock connString organisation maxDuration lockId)) |> OOise lockId
     /// As ``EnvironmentLock``, but waiting until ``timeOut`` or the lock is available
-    member x.AwaitEnvironmentLock (lockId, organisation, environment, maxDuration, timeOut, pollInterval) =
+    member x.AwaitEnvironmentLock (lockId, organisation, environment, maxDuration, timeOut) =
         (fun lockId -> AwaitLock timeOut (fun () -> GetEnvironmentLock connString organisation environment maxDuration lockId)) |> OOise lockId
     /// Build a ``System.Func`` that returns a lock based on lockId and provide a list of lockIds.
     /// If any of the locks are available, it will pick one of the available locks at random.
@@ -68,7 +68,7 @@ type LockProvider (connString : string) =
     /// Build a ``System.Func`` that returns a lock based on lockId and provide a list of lockIds.
     /// If any of the locks are available, it will pick one of the available locks at random.
     /// If none are available it will wait until one is, or ``timeOut`` has passed.
-    member x.AwaitOneOf<'t> (getLock : System.Func<'t, Lock>, lockIds, timeOut, pollInterval) =
+    member x.AwaitOneOf<'t> (getLock : System.Func<'t, Lock>, lockIds, timeOut) =
         let getLock' =
             fun t ->
                 try
