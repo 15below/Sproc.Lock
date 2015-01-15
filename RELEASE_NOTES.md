@@ -1,3 +1,8 @@
+### 1.0.0-beta4 - Bug fix
+* removed unused pollInterval parameters from OO interface
+* Fix TimeOut exception for awaited locks (new returns Unavailable, as designed)
+* Update css/template
+
 ### 1.0.0-beta3 - Adding description
 * Hashed values are indexed in lock tables, but a human readable description is also added for debugging.
 * Database re-baselined
