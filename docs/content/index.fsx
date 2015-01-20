@@ -67,13 +67,13 @@ And C#:
                 {
                     using (var lock2 = provider.GlobalLock("MyAppLock", TimeSpan.FromMinutes(5.0)))
                     {
-                        // If I get here, I've got a lock!                    
+                        // If I get here, I have a lock!                    
                         // Doing stuff!
                     } // Lock released when Disposed
                 }
                 catch (LockUnavailableException)
                 {
-                    // Couldn't get the lock                
+                    // Could not get the lock                
                     throw;
                 }
                 catch (LockRequestErrorException)
