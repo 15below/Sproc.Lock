@@ -137,9 +137,9 @@ The library is available under Public Domain license, which allows modification 
 redistribution for both commercial and non-commercial purposes. For more information see the 
 [License file][license] in the GitHub repository. 
 
-  [content]: https://github.com/fsprojects/Sproc.Lock/tree/master/docs/content
-  [gh]: https://github.com/fsprojects/Sproc.Lock
-  [issues]: https://github.com/fsprojects/Sproc.Lock/issues
-  [readme]: https://github.com/fsprojects/Sproc.Lock/blob/master/README.md
-  [license]: https://github.com/fsprojects/Sproc.Lock/blob/master/LICENSE.txt
+  [content]: https://github.com/15below/Sproc.Lock/tree/master/docs/content
+  [gh]: https://github.com/15below/Sproc.Lock
+  [issues]: https://github.com/15below/Sproc.Lock/issues
+  [readme]: https://github.com/15below/Sproc.Lock/blob/master/README.md
+  [license]: https://github.com/15below/Sproc.Lock/blob/master/LICENSE.txt
 *)
