@@ -231,4 +231,4 @@ type Specs =
 [<Test>]
 let ``Run properties`` () =
     Arb.register<LockGenerator>() |> ignore
-    Check.VerboseThrowOnFailureAll typeof<Specs>
+    Check.QuickThrowOnFailureAll typeof<Specs>

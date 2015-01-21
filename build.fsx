@@ -221,7 +221,7 @@ Target "NuGet" (fun _ ->
             OutputPath = "bin"
             AccessKey = getBuildParamOrDefault "nugetkey" ""
             Publish = hasBuildParam "nugetkey"
-            Dependencies = [] })
+            Dependencies = ["FSharp.Core", "3.1.2.1"] })
         ("nuget/" + project + ".nuspec")
 )
 

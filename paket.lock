@@ -4,6 +4,7 @@ NUGET
     FAKE (3.12.2)
     FsCheck (1.0.3)
     FSharp.Compiler.Service (0.0.67)
+    FSharp.Core (3.1.2.1)
     FSharp.Formatting (2.4.36)
       FSharp.Compiler.Service (0.0.67)
       Microsoft.AspNet.Razor (2.0.30506.0)
@@ -19,7 +20,7 @@ NUGET
     NUnit (2.6.4)
     NUnit.Runners (2.6.4)
     Octokit (0.6.1)
-      Microsoft.Net.Http ()
+      Microsoft.Net.Http
     RazorEngine (3.3.0)
       Microsoft.AspNet.Razor (>= 2.0.30506.0)
     roundhouse (0.8.6)
@@ -28,4 +29,4 @@ GITHUB
   remote: fsharp/FAKE
   specs:
     modules/Octokit/Octokit.fsx (09b7f6347fa612706120262fca071d9170da8873)
-      Octokit ()
+      Octokit
