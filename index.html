@@ -142,13 +142,13 @@
             {
                 <span class="k">using</span> (<span class="k">var</span> lock2 <span class="o">=</span> provider.GlobalLock(<span class="s">"MyAppLock"</span>, TimeSpan.FromMinutes(5.0)))
                 {
-                    <span class="c">// If I get here, I&amp;#39;ve got a lock!                    </span>
+                    <span class="c">// If I get here, I have a lock!                    </span>
                     <span class="c">// Doing stuff!</span>
                 } <span class="c">// Lock released when Disposed</span>
             }
             <span class="k">catch</span> (LockUnavailableException)
             {
-                <span class="c">// Couldn&amp;#39;t get the lock                </span>
+                <span class="c">// Could not get the lock                </span>
                 <span class="k">throw</span>;
             }
             <span class="k">catch</span> (LockRequestErrorException)
@@ -204,14 +204,14 @@ functions.</p></li>
 
 <h2>Contributing and copyright</h2>
 
-<p>The project is hosted on <a href="https://github.com/fsprojects/Sproc.Lock">GitHub</a> where you can <a href="https://github.com/fsprojects/Sproc.Lock/issues">report issues</a>, fork 
+<p>The project is hosted on <a href="https://github.com/15below/Sproc.Lock">GitHub</a> where you can <a href="https://github.com/15below/Sproc.Lock/issues">report issues</a>, fork 
 the project and submit pull requests. If you're adding a new public API, please also 
-consider adding <a href="https://github.com/fsprojects/Sproc.Lock/tree/master/docs/content">samples</a> that can be turned into a documentation. You might
-also want to read the <a href="https://github.com/fsprojects/Sproc.Lock/blob/master/README.md">library design notes</a> to understand how it works.</p>
+consider adding <a href="https://github.com/15below/Sproc.Lock/tree/master/docs/content">samples</a> that can be turned into a documentation. You might
+also want to read the <a href="https://github.com/15below/Sproc.Lock/blob/master/README.md">library design notes</a> to understand how it works.</p>
 
 <p>The library is available under Public Domain license, which allows modification and 
 redistribution for both commercial and non-commercial purposes. For more information see the 
-<a href="https://github.com/fsprojects/Sproc.Lock/blob/master/LICENSE.txt">License file</a> in the GitHub repository.</p>
+<a href="https://github.com/15below/Sproc.Lock/blob/master/LICENSE.txt">License file</a> in the GitHub repository.</p>
 
 <div class="tip" id="fs1">namespace System</div>
 <div class="tip" id="fs2">namespace Sproc</div>
