@@ -1,3 +1,7 @@
+### 1.0.0-beta5 - Packaging Fix
+* Add FSharp.Core as nuget dependency (Fixes issue #1)
+* Minor documentation fixes
+
 ### 1.0.0-beta4 - Bug fix
 * removed unused pollInterval parameters from OO interface
 * Fix TimeOut exception for awaited locks (new returns Unavailable, as designed)
