@@ -1,3 +1,6 @@
+### 1.0.0-beta6 - Volume test tweaks
+* Tweak polling based 
+
 ### 1.0.0-beta5 - Packaging Fix
 * Add FSharp.Core as nuget dependency (Fixes issue #1)
 * Minor documentation fixes

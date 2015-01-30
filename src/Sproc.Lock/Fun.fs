@@ -12,7 +12,8 @@ let private intervals (timeOut : TimeSpan) =
     let rec inner polls total =
         seq {
             let x = float polls
-            let maxPoll = totalMs / 5.
+            let maxPoll =
+                max (min (totalMs / 5.) 60000.) (5000.)
             let raise y = Math.Pow (y / 10., 4.)
             let next =
                 (maxPoll * (raise x)) / (raise x + 1.) |> int
