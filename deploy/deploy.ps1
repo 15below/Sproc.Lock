@@ -1,2 +1,2 @@
 $connectionString = $OctopusParameters["connectionString"]
-& tools/rh.exe --connString $connectionString
+& tools/rh.exe --silent --connstring $connectionString --files=Database

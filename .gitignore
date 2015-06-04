@@ -183,5 +183,5 @@ paket-files
 .paket/paket.exe
 docs/content/license.md
 docs/content/release-notes.md
-debug/tools
-debug/Database
+deploy/tools
+deploy/Database

@@ -1,3 +1,6 @@
+### 1.0.1 - Octopus Deploy
+* Add build step to create Octopus Deploy package
+
 ### 1.0.0 - Release
 * Released
 

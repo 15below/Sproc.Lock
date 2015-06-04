@@ -72,19 +72,36 @@ let gitName = "Sproc.Lock"
 // The url for the raw files hosted
 let gitRaw = environVarOrDefault "gitRaw" "https://raw.github.com/15below"
 
-Target "OctopusPackage" (fun _ ->
-    CopyDir "Database" ("deploy" @@ "Database") (fun _ -> true)
-    CopyDir ("packages" @@ "roundhouse" @@ "bin") ("deploy" @@ "tools") (fun _ -> true)
+// Read additional information from the release notes document
+let release = LoadReleaseNotes "RELEASE_NOTES.md"
+
+Target "OctopusPackageAndPush" (fun _ ->
+    CopyDir ("deploy" @@ "Database") "Database" (fun _ -> true)
+    CopyDir ("deploy" @@ "tools") ("packages" @@ "roundhouse" @@ "bin") (fun _ -> true)
     let octo = !! "packages/OctopusTools/**/Octo.exe" |> Seq.head
     let retCode =
         shellExec { Args = [
                             "--id", "Sproc.Lock.Deploy"
                             "--version", release.NugetVersion
+                            "--outFolder", ".." @@ "temp"
                            ]
                     Program = octo
-                    WorkingDirectory = "deploy" }
+                    WorkingDirectory = "deploy"
+                    CommandLine = "pack --overwrite" }
     if retCode <> 0 then
         failwithf "Octo.exe failure: %d" retCode
+    let nuget = !! "packages/NuGet.CommandLine/**/NuGet.exe" |> Seq.head
+    let retCode =
+        shellExec { Args = [
+                            "-Source", environVar "deployPushUrl"
+                            "-ApiKey", environVar "deployApiKey"
+                           ]
+                    Program = nuget
+                    WorkingDirectory = "temp"
+                    CommandLine = "push Sproc.Lock.Deploy.*.nupkg" }
+    if retCode <> 0 then
+        failwithf "nuget.exe failure pushing deploy packages: %d" retCode
+    CleanDir "temp"
 )
 
 // Database deployment target
@@ -133,8 +150,6 @@ END
 // END TODO: The rest of the file includes standard build steps
 // --------------------------------------------------------------------------------------
 
-// Read additional information from the release notes document
-let release = LoadReleaseNotes "RELEASE_NOTES.md"
 
 let genFSAssemblyInfo (projectPath) =
     let projectName = System.IO.Path.GetFileNameWithoutExtension(projectPath)
@@ -419,6 +434,9 @@ Target "All" DoNothing
   ==> "Release"
 
 "BuildPackage"
+  ==> "Release"
+
+"OctopusPackageAndPush"
   ==> "Release"
 
 "DeployDatabase"
