@@ -12,7 +12,7 @@ type LockRequestErrorException (errorCode) as this =
     inherit System.Exception(sprintf "Error code: %d" errorCode)
     do
         this.Data.Add(box "ErrorCode", box errorCode)
-    member x.LockErrorCode 
+    member x.LockErrorCode
         with get () =
             x.Data.["ErrorCode"] |> unbox<int>
 
@@ -23,7 +23,7 @@ type LockProvider (connString : string) =
         | Locked l -> l
         | Unavailable -> raise <| LockUnavailableException(sprintf "Lock %s was unavailable." lockId)
         | Error i -> raise <| LockRequestErrorException i
-        
+
     /// Attempts to acquire a global lock from the provider with
     /// the specified lockIdentifier. After maxDuration has elapsed the
     /// lock will become "stale" and will be automatically released to the

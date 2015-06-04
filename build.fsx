@@ -72,6 +72,21 @@ let gitName = "Sproc.Lock"
 // The url for the raw files hosted
 let gitRaw = environVarOrDefault "gitRaw" "https://raw.github.com/15below"
 
+Target "OctopusPackage" (fun _ ->
+    CopyDir "Database" ("deploy" @@ "Database") (fun _ -> true)
+    CopyDir ("packages" @@ "roundhouse" @@ "bin") ("deploy" @@ "tools") (fun _ -> true)
+    let octo = !! "packages/OctopusTools/**/Octo.exe" |> Seq.head
+    let retCode =
+        shellExec { Args = [
+                            "--id", "Sproc.Lock.Deploy"
+                            "--version", release.NugetVersion
+                           ]
+                    Program = octo
+                    WorkingDirectory = "deploy" }
+    if retCode <> 0 then
+        failwithf "Octo.exe failure: %d" retCode
+)
+
 // Database deployment target
 Target "DeployDatabase" (fun _ ->
     let rh = !! "packages/roundhouse/**/rh.exe" |> Seq.head

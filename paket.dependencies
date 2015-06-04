@@ -9,5 +9,6 @@ nuget SourceLink.Fake
 nuget FsCheck
 nuget roundhouse
 nuget FSharp.Core
+nuget OctopusTools
 
 github fsharp/FAKE modules/Octokit/Octokit.fsx
