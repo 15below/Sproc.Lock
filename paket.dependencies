@@ -1,6 +1,6 @@
 source https://nuget.org/api/v2
 
-nuget FSharp.Formatting
+nuget FSharp.Formatting 2.4.36
 nuget NUnit
 nuget NUnit.Runners
 nuget Nuget.CommandLine

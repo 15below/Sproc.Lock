@@ -3,13 +3,13 @@ NUGET
   specs:
     FAKE (3.30.3)
     FsCheck (1.0.4)
-    FSharp.Compiler.Service (0.0.89)
+    FSharp.Compiler.Service (0.0.67)
     FSharp.Core (3.1.2.1)
-    FSharp.Formatting (2.9.4)
-      FSharp.Compiler.Service (>= 0.0.87)
-      FSharpVSPowerTools.Core (1.8.0)
-    FSharpVSPowerTools.Core (1.8.0)
-      FSharp.Compiler.Service (>= 0.0.87)
+    FSharp.Formatting (2.4.36)
+      FSharp.Compiler.Service (0.0.67)
+      Microsoft.AspNet.Razor (2.0.30506.0)
+      RazorEngine (3.3.0)
+    Microsoft.AspNet.Razor (2.0.30506.0)
     Microsoft.Bcl (1.1.10)
       Microsoft.Bcl.Build (>= 1.0.14)
     Microsoft.Bcl.Build (1.0.21)
@@ -22,6 +22,8 @@ NUGET
     Octokit (0.10.0)
       Microsoft.Net.Http
     OctopusTools (2.6.3.59)
+    RazorEngine (3.3.0)
+      Microsoft.AspNet.Razor (>= 2.0.30506.0)
     roundhouse (0.8.6)
     SourceLink.Fake (0.5.0)
 GITHUB
