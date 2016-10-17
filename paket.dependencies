@@ -4,11 +4,11 @@ nuget FSharp.Formatting 2.4.36
 nuget NUnit
 nuget NUnit.Runners
 nuget Nuget.CommandLine
-nuget FAKE
+nuget FAKE 4.40.1
 nuget SourceLink.Fake
-nuget FsCheck
+nuget FsCheck 2.0.6
 nuget roundhouse
-nuget FSharp.Core
+nuget FSharp.Core 4.0.0.1
 nuget OctopusTools
 
 github fsharp/FAKE modules/Octokit/Octokit.fsx
