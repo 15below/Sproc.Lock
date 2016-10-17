@@ -1,7 +1,6 @@
-### 1.0.2 - Update FSharp.Core, FsCheck, FAKE, and .Net version 
+### 1.0.2 - Update FSharp.Core, FsCheck, and .Net version 
 * Updated FSharp.Core to 4.0.0.1 (4.4.0.0)
 * Updated FsCheck to 2.0.6
-* Updated FAKE to 4.40.1
 * Updated Sproc.Lock to target .Net 4.5
 
 ### 1.0.1 - Octopus Deploy

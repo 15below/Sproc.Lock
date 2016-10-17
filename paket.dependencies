@@ -4,7 +4,7 @@ nuget FSharp.Formatting 2.4.36
 nuget NUnit
 nuget NUnit.Runners
 nuget Nuget.CommandLine
-nuget FAKE 4.40.1
+nuget FAKE
 nuget SourceLink.Fake
 nuget FsCheck 2.0.6
 nuget roundhouse
