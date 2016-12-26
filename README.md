@@ -1,7 +1,5 @@
 Take a distributed lock in a shared SQL Server database.
 
-In F#:
-
 Example
 -------
 
