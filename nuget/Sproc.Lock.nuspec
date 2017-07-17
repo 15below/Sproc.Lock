@@ -5,19 +5,18 @@
     <version>@build.number@</version>
     <authors>@authors@</authors>
     <owners>@authors@</owners>
-    <licenseUrl>http://github.com/fsprojects/Sproc.Lock/blob/master/LICENSE.txt</licenseUrl>
-    <projectUrl>http://fsprojects.github.com/Sproc.Lock</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/fsprojects/ProjectScaffold/master/docs/files/img/logo.png</iconUrl>
+    <licenseUrl>https://github.com/15below/Sproc.Lock/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>http://15below.github.io/Sproc.Lock</projectUrl>
+    <iconUrl>https://pbs.twimg.com/profile_images/3046082295/a10bd2175096bd5faebbd8285e319d54_400x400.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <summary>@summary@</summary>
     <description>@description@</description>
     <releaseNotes>@releaseNotes@</releaseNotes>
-    <copyright>Copyright 2013</copyright>
     <tags>@tags@</tags>
-    <dependencies />
+    @dependencies@
   </metadata>
   <files>
-    <file src="..\bin\Sproc.Lock.dll" target="lib/net40" />
-    <file src="..\bin\Sproc.Lock.pdb" target="lib/net40" />
+    <file src="..\bin\Sproc.Lock.dll" target="lib/net45" />
+    <file src="..\bin\Sproc.Lock.pdb" target="lib/net45" />
   </files>
 </package>
