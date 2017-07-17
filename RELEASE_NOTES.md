@@ -1,3 +1,7 @@
+### 1.0.4 - Fix NuGet package (2)
+* Include FSharp.Core dependency
+* Correct package location to net45
+
 ### 1.0.3 - Fix NuGet package
 * Include FSharp.Core dependency
 * Correct package location to net45
