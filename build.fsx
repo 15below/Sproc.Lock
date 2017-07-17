@@ -74,6 +74,12 @@ let gitRaw = environVarOrDefault "gitRaw" "https://raw.github.com/15below"
 // Read additional information from the release notes document
 let release = LoadReleaseNotes "RELEASE_NOTES.md"
 
+let gitPath = match Directory.Exists @"C:\Program Files (x86)\Git\bin" with
+              | true -> @"C:\Program Files (x86)\Git\bin\git.exe"
+              |_ -> @"C:\Program Files\Git\bin\git.exe"
+              
+setEnvironVar "GIT" gitPath
+
 Target "OctopusPackageAndPush" (fun _ ->
     CopyDir ("deploy" @@ "Database") "Database" (fun _ -> true)
     CopyDir ("deploy" @@ "tools") ("packages" @@ "roundhouse" @@ "bin") (fun _ -> true)
