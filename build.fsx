@@ -17,10 +17,6 @@ open System.IO
 open SourceLink
 #endif
 
-// --------------------------------------------------------------------------------------
-// START TODO: Provide project-specific details below
-// --------------------------------------------------------------------------------------
-
 // Information about the project are used
 //  - for version and project name in generated AssemblyInfo file
 //  - by the generated NuGet package
@@ -44,6 +40,9 @@ let authors = [ "Michael Newton" ]
 
 // Tags for your project (for NuGet package)
 let tags = "distributed_lock lock"
+
+// Dependencies
+let dependencies = ["FSharp.Core", "4.0.0.1"]
 
 // File system information 
 let solutionFile  = "Sproc.Lock.sln"
@@ -251,7 +250,7 @@ Target "NuGet" (fun _ ->
             OutputPath = "bin"
             AccessKey = getBuildParamOrDefault "nugetkey" ""
             Publish = hasBuildParam "nugetkey"
-            Dependencies = ["FSharp.Core", "3.1.2.1"] })
+            Dependencies = dependencies })
         ("nuget/" + project + ".nuspec")
 )
 
