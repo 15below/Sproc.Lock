@@ -1,3 +1,7 @@
+### 2.0.0 - Update FSharp.Core, FsCheck
+* Updated FSharp.Core to 4.2.2 (4.4.1.0)
+* Updated FsCheck to 2.9
+
 ### 1.0.4 - Fix NuGet package (2)
 * Include FSharp.Core dependency
 * Correct package location to net45

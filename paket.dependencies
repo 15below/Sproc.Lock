@@ -1,14 +1,15 @@
+framework: auto-detect
 source https://nuget.org/api/v2
 
-nuget FSharp.Formatting 2.4.36
+nuget FSharp.Formatting
 nuget NUnit
 nuget NUnit.Runners
 nuget Nuget.CommandLine
 nuget FAKE
 nuget SourceLink.Fake
-nuget FsCheck 2.0.6
+nuget FsCheck
 nuget roundhouse
-nuget FSharp.Core 4.0.0.1
+nuget FSharp.Core
 nuget OctopusTools
 
 github fsharp/FAKE modules/Octokit/Octokit.fsx
