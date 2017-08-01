@@ -42,7 +42,7 @@ let authors = [ "Michael Newton" ]
 let tags = "distributed_lock lock"
 
 // Dependencies
-let dependencies = ["FSharp.Core", "4.0.0.1"]
+let dependencies = ["FSharp.Core", "4.2.2"]
 
 // File system information 
 let solutionFile  = "Sproc.Lock.sln"
